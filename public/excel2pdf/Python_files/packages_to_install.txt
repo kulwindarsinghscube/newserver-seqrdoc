@@ -1,0 +1,14 @@
+pip install fitz
+pip install pytest-shutil
+pip install pprint36
+pip install mysql-connector-python
+pip3 install pillow
+pip install python-barcode
+pip install qrcode
+pip install openpyxl
+pip install uuid
+pip install frontend
+pip install pyzbar
+pip install PyMuPDF==1.18.1
+pip install fpdf2
+pip install pymupdf-fonts

@@ -1,0 +1,10 @@
+{
+    "percent": 100,
+    "message": "Generating 1/1 PDF(s)",
+    "beginning_time": "12:32:42",
+    "ending_time": "12:32:42",
+    "exec_time": 0.5183618068695068,
+    "hms_time": "00:00:00",
+    "page_time": "00:00:00",
+    "pages_processed": "2 (2 Pages x 1 PDFs)"
+}

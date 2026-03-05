@@ -1,0 +1,286 @@
+@extends('admin.layout.layout')
+@section('content')
+<div class="container">
+	<h1 class="page-header"><i class="fa fa-envira"></i> Scan History
+<ol class="breadcrumb pull-right" style="background:transparent;font-size:14px;">{{ Breadcrumbs::render('scanhistory') }}</ol>
+<i class="fa fa-info-circle iconModalCss" title="User Manual" id="scanHistorySandboxingClick"></i>
+</h1>
+<div class="">
+		<ul class="nav nav-pills" id="addUser">
+		  <li class="active"><a id="web-pill" data-toggle="pill" href="#webapp"><i class="fa fa-fw fa-lg fa-desktop"></i> WebApp </a></li>
+		  <li><a id="android-pill"data-toggle="pill" href="#android"><i class="fa fa-fw fa-lg fa-android"></i> Android</a></li>
+		  <li><a id="iphone-pill"data-toggle="pill" href="#iphone"><i class="fa fa-fw fa-lg fa-apple"></i> iPhone</a></li>
+		</ul>
+
+		<table id="example" class="table table-hover display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Date</th>
+					<th>Scanner</th>
+					<th>Scanned Data</th>
+					<th>Scan by</th>
+					<th>User Type</th>
+					<th>Result</th>
+          <th></th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+			<tfoot>
+			</tfoot>
+		</table>
+	</div>
+</div>
+ <!-- // Student's info model -->
+@include('admin.scanHistory.model')
+ <!-- // end Student's info model -->
+@stop
+
+
+@section('script')
+
+ <script type="text/javascript">
+
+       // datatable	 
+   var oTable = $('#example').DataTable( {
+     'dom':  "<'row'<'col-sm-5' p><'col-sm-3' ><'col-sm-4'f>>",
+        "bProcessing": false,
+        "bServerSide": true,
+        "autoWidth": true,
+            "aaSorting": [
+        [7, "desc"]
+        ],
+        "sAjaxSource":"<?= URL::route('sandboxing.scanHistory.index',['device_type'=>'webapp'])?>",
+        "aoColumns":[
+          {mData: "rownum", bSortable:false,"sClass": "text-center","width": "1%"},
+          {
+             mData: "date_time",
+             bSortable:true,
+             'Width':'5%',
+             mRender:function(v){
+
+                return moment(v).format('DD MMM YYYY hh:mm a');
+
+             },
+           },
+          { 
+          	mData: "device_type",
+            'Width':'20%',
+             bSortable:false,
+            mRender:function(v){
+
+             var  icon=null;
+             var type=v.toLowerCase(); 
+              if(type=="webapp")
+              {
+                 return icon='<i class="fa fa-fw fa-2x fa-desktop"></i>';
+              } 
+              else if(type=="android")
+              {
+                return icon='<i class="fa fa-fw fa-2x fa-android green"></i>';  
+              }
+              else if(type=="ios")
+              {
+                return icon='<i class="fa fa-fw fa-lg fa-apple"></i>';
+              }
+              
+            },
+
+          },
+          {mData: "scanned_data", bSortable:false,'Width':'10%'},
+          {mData: "scan_by",bSortable:true,'Width':'5%'},
+          {
+          	mData: "institute_username",
+            'Width':'14%',
+          	bSortable:true,
+
+          	mRender:function(v){
+              // console.log(v);
+          		if(v)
+          		{
+          			return "institute admin";
+          		}
+          		else
+          		{
+          			return "student";
+          		}
+          	}
+          },
+          {
+          	mData: "scan_result",
+          	bSortable:false,
+          	mRender:function(v,t,o){
+            var button=null;
+            @if(App\Helpers\SitePermissionCheck::isPermitted('scanningHistory.getdata'))
+            @if(App\Helpers\RolePermissionCheck::isPermitted('scanningHistory.getdata')) 
+              if(v==1)
+              {
+              	 return button='<span style="cursor: pointer; color: #fff;" class="btn btn-theme" id="infoData">Success</span>';
+              }
+              else if(v==0)
+              {
+              	return button='<span style="cursor:not-allowed;color: #fff;" class="btn btn-theme2">Inactive QR</span>';
+              }
+              else if(v==2)
+              {
+              	return button ='<span style="cursor:not-allowed;color: #fff;" class="btn btn-theme2">Regular QR</span>';
+              }
+              else
+              {
+                 return '';
+              }
+            @endif
+            @endif
+          	},
+          },
+
+          {mData: "updated_at",bSortable:false,bVisible:false},  
+      ],
+    });
+   // show information  Student's info
+ 	oTable.on('click', '#infoData', function () {
+      
+	    	var key_id = $(this).closest("tr").find('td:eq(3)').text();
+        var url_path="{{ URL::route('sand-box.scanHistory.getdata') }}";
+        var token="{{ csrf_token() }}";
+
+        $("#info1,#info2,#info3,#info4,#info5").text(' ');
+		 $.ajax({    
+	    		url: url_path,
+	    		type:'post',
+	    		data:{'key':key_id,'_token':token},
+	    		dataType: 'json',
+	    		success: function(response) {
+					if(response)
+					{
+						$('#info').modal('show');
+						var $status = response['status'] ? 'Active' : 'Inactive';
+						var $path   = response['path'];
+
+						$('#info1').html(response['serial_no']);
+						$('#info2').html(response['student_name']);
+						$('#info3').html(response['certificate_filename']);
+						$('#info4').html($status);
+						$('#info5').html('<img class="img-responsive img-thumbnail" src="<?= Config::get('constant.qrcode_show_new')?>/'+$path+'">');
+						$('#info6').html(response['key']);
+						$("a#info3").attr("href", "<?= Config::get('constant.show_pdf_aws')?>/"+response['certificate_filename']);
+					}
+          $('#info').modal('show');
+				}
+		 });
+
+	}); 
+  
+  oTable.on('draw.dt', function () {
+    $vary = $('#addUser');
+    $('#example_length').prepend($vary);
+    $('#addUser').css('margin-right','20px');
+    $('.loader').addClass('hidden');
+  }); 
+  // get data webapp user      
+ $('#web-pill').click(function(){
+    $('.loader').removeClass('hidden');
+    var url="<?= URL::route('sandboxing.scanHistory.index',['device_type'=>'webapp'])?>";
+    oTable.ajax.url(url);
+    oTable.ajax.reload();
+  
+  });
+  // get data android user
+
+  $('#android-pill').click(function(){
+    $('.loader').removeClass('hidden');
+    var url="<?= URL::route('sandboxing.scanHistory.index',['device_type'=>'android'])?>";
+    oTable.ajax.url(url);
+    oTable.ajax.reload();
+  });
+   // get data ios user
+   $('#iphone-pill').click(function(){
+     $('.loader').removeClass('hidden');
+    var url="<?= URL::route('sandboxing.scanHistory.index',['device_type'=>'ios'])?>";
+    oTable.ajax.url(url);
+    oTable.ajax.reload();  
+  });
+ </script>
+
+
+ @stop
+
+ @section('style')
+<style>
+#example td{
+	word-break: break-all;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus{
+	background:#0052CC;
+	color:#fff;
+	border:1px solid #0052CC;
+}
+
+
+.nav-pills>li.active>a:hover, .nav-pills>li>a:focus, .nav-pills>li>a:hover
+{
+	background:#fff;
+	background:#ddd;
+	border-radius:0;
+	padding:10px 20px;
+	color:#333;
+	border-radius:2px;
+	border:1px solid #ddd;
+}
+
+.nav-pills>li>a, .nav-pills>li>a
+{
+	background:#fff;
+	color:#aaa;
+	border-radius:0;
+	padding:10px 20px;
+	border-radius:2px;
+	margin-bottom:20px;
+	border:1px solid #ddd;
+}
+
+
+#example_length label{
+	display:none;
+}
+.help-inline{
+  color:red;
+  font-weight:normal;
+}
+
+.breadcrumb{
+  background:#fff;
+}
+
+.breadcrumb a{
+  color:#666;
+}
+
+.breadcrumb a:hover{
+  text-decoration:none;
+  color:#222;
+}
+
+.loader{
+  display: table;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.loader-content{
+  display:table-cell;
+  vertical-align: middle;
+  color:#fff;
+}
+.iconModalCss {
+    right: 92px !important;
+  }
+</style>
+ @stop

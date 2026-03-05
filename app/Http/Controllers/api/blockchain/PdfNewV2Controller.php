@@ -1,0 +1,1450 @@
+<?php
+
+namespace App\Http\Controllers\api\blockchain;
+
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+
+use App\models\StudentTable;
+use App\models\SbStudentTable;
+use App\models\Site;
+use App\models\TemplateMaster;
+use App\Helpers\CoreHelper;
+use DB;
+use Storage;
+use App\models\Demo\Site as DemoSite;
+use App\Utility\BlockChain;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Validator;
+use App\models\BlockChainApiTracker;
+
+class PdfNewV2Controller extends Controller
+{
+
+    public function index($token){
+        return view('bverify_new.index_v1',[
+            'token' => $token
+        ]);
+    }
+
+    
+    private function isValid64base($str){
+        if (base64_decode($str, true) !== false){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private static function insertTracker($requestUrl, $requestMethod, $requestParameters,$response,$status,$responseTime,$apiName) 
+    {
+        
+
+        //fetching headers
+        // $headers = apache_request_headers();
+        $headers = apache_request_headers();
+        
+        $headerParameters = array();
+        if (isset($headers['apikey'])) {
+            $headerParameters['apikey'] = $headers['apikey'];
+        }else if(isset($headers['Apikey'])){
+
+            $headerParameters['apikey'] = $headers['Apikey'];
+
+        }
+        if (isset($headers['accesstoken'])) {
+            $headerParameters['accesstoken'] = $headers['accesstoken'];
+        }
+        if (isset($headers['Accesstoken'])) {
+            $headerParameters['accesstoken'] = $headers['Accesstoken'];
+        }
+        if (isset($headers['Content-Type'])) {
+            $headerParameters['Content-Type'] = $headers['Content-Type'];
+        }
+
+        
+
+        $client_ip = $_SERVER['REMOTE_ADDR'];
+        $headerParameters = json_encode($headerParameters);
+        $requestParameters = json_encode($requestParameters);
+        $response = json_encode($response);
+        $dateTime = date('Y-m-d H:i:s');
+
+
+
+        $result = new BlockChainApiTracker;
+        $result->client_ip = $client_ip;
+        $result->request_url = $requestUrl;
+        $result->request_method = $requestMethod;
+        $result->status = $status;
+        $result->header_parameters = $headerParameters;
+        $result->request_parameters = $requestParameters;
+        $result->response = $response;
+        $result->created_at = $dateTime;
+        $result->client_ip = $client_ip;
+        $result->api_name = $apiName;
+        $result->response_time = $responseTime;
+
+        $result->save();
+
+        return $result->id;
+
+        
+    }
+
+    public function showDetails(Request $request,$token){
+        
+
+        $valid=true;
+        $domain = \Request::getHost();
+        $subdomain = explode('.', $domain);
+        if($domain == 'verification.anu.edu.in') {
+            $domain = 'anu.seqrdoc.com';
+            $subdomain[0] = 'anu';
+        }
+        $site = Site::select('site_id')->where('site_url',$domain)->first();
+        $site_id = $site['site_id'];
+        // $token="76DFF20704DDD5B0BD2AD04AF30AB792";
+        // echo  $key = encrypt($token);
+        // exit;
+        //echo $token;
+        
+        if(!empty($token)){
+            try {
+                
+                //FOR PHP
+                
+                 $key = decrypt($token);
+                
+                // //  $base64_string = "SGVsbG8gd29ybGQ=";
+                // $decoded_data = base64_decode($token);
+
+                // if ($decoded_data === false) {
+                //     $key = decrypt($token);
+                // } else {
+                //    $key =  $decoded_data;
+                // }
+                
+            } catch (DecryptException $e) {
+
+                $key="";
+                if($this->isValid64base($token)){
+                    $key = base64_decode($token);
+                    //for PDF2PDF
+                    $studentData = StudentTable::where('key',$key)
+                                                ->where('publish',1)
+                                                ->where('status',1)
+                                                ->where('site_id',$site_id)
+                                                ->orderBy('id','DESC')
+                                                ->first();
+                    if($studentData){
+                        $key=$key;
+                    }else{
+                        $result = json_decode($key);
+                        if ($result === FALSE) {
+                            // JSON is invalid
+                            $key=$key;
+                        }else{
+                            //FOR exceptional case
+                            $key =$this->decodeCustomLogic($token);
+                        }
+                    }
+                 
+                }else{
+                    //FOR exceptional case   
+                    $key =$this->decodeCustomLogic($token);
+                  
+                }
+                //print_r($e->getMessage());
+            }
+            
+           
+            // dd($key);
+            if(!empty($key)){
+                
+                 $studentData = StudentTable::where('key',$key)
+                                                ->where('publish',1)
+                                                ->where('status',1)
+                                                ->where('site_id',$site_id)
+                                                ->orderBy('id','DESC')
+                                                ->first();
+                
+        
+
+                
+                if($studentData){
+
+                    $siteData = DemoSite::select('bc_wallet_address')->where('site_url',$domain)->first();
+                    
+                    
+                    
+
+                    $tokenData = DB::table('blockchain_other_data')
+                            ->select('student_table_id','token_id')
+                            ->where('student_table_id','=',$studentData['id'])
+                            ->whereNotNull('token_id')
+                            ->first(); 
+
+                    if($subdomain[0] == 'aiimsnagpur' || $subdomain[0] == 'konkankrishi' ) {
+
+                        $tokenDataV1 = DB::table('blockchain_other_data')
+                        ->select('student_table_id','vendor_identifier','certificate_id')
+                        ->where('student_table_id','=',$studentData['id'])
+                        ->first();
+                    } else {
+                         $tokenDataV1 = DB::table('blockchain_other_data')
+                        ->select('student_table_id')
+                        ->where('student_table_id','=',$studentData['id'])
+                        ->first();
+
+                    }
+                   
+
+                    if(($subdomain[0] == 'aiimsnagpur' && $tokenDataV1->vendor_identifier == '2') || ($subdomain[0] == 'konkankrishi' && $tokenDataV1->vendor_identifier == '2') ) {
+                        
+                        $certificate_id =  $tokenDataV1->certificate_id; 
+
+
+                        $requestMethod='GET';
+                        $requestParameters['certificate_id']=$certificate_id;
+
+                        // API endpoint
+                        $url = "https://api.truscholar.io/credentials/{$certificate_id}/verify";
+
+                        // Initialize cURL
+                        $ch = curl_init($url);
+
+                        // Set cURL options
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                            'Accept: application/json'
+                        ]);
+
+                        // Execute cURL request
+                        $response = curl_exec($ch);
+
+                        // Check for errors
+                        if (curl_errno($ch)) {
+                            echo 'cURL error: ' . curl_error($ch);
+                            curl_close($ch);
+                            exit;
+                        }
+
+                        curl_close($ch);
+
+                        // Decode the response
+                        $data = json_decode($response, true);
+
+                        // print_r($data);
+                        // exit;
+
+                        // Output the result
+                        if ($data && $data['status'] === 200) {
+                            
+
+                            // echo "<pre>";
+                            // print_r($data['result']['txHash']);
+                            // echo "</pre>";
+
+                            // die();
+
+                            $metadata = $data['result']['metadata'];
+                            // Convert metadata to traits
+                            $programCode = $metadata['programCode'];
+                            $traits = [];
+                            if($subdomain[0] == 'aiimsnagpur') {
+                                if ($programCode == 'MBBS') {
+                                    $traits[] = [
+                                        'trait_type' => 'Enrollment No',
+                                        'value' => $metadata['enrollmentNo']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Student',
+                                        'value' => $metadata['studentName']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Degree',
+                                        'value' => 'MBBS'
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Exam Month/Year',
+                                        'value' => $metadata['degreeDate']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Internship Completion Month/Year',
+                                        'value' => date('F Y', $metadata['issuedDate']) // Convert timestamp to readable format
+                                    ];
+                                    $contractAddress = '0x17338F9dAa5ba49303d1006f93b75010B04b7332';
+
+                                } else if($programCode == 'MD' || $programCode == 'MS') {
+                                    $traits[] = [
+                                        'trait_type' => 'Enrollment No',
+                                        'value' => $metadata['enrollmentNo']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Student',
+                                        'value' => $metadata['studentName']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Degree',
+                                        'value' => $programCode
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Subject',
+                                        'value' => $metadata['departmentName']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Exam Month/Year',
+                                        'value' => $metadata['year']
+                                    ];
+
+                                    $contractAddress = '0x17338F9dAa5ba49303d1006f93b75010B04b7332';
+
+                                }
+                            } else {
+
+                                $traits[] = [
+                                        'trait_type' => 'Enrollment No',
+                                        'value' => $metadata['enrollmentNo']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Student',
+                                        'value' => $metadata['studentName']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Name of Degree',
+                                        'value' => $programCode
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Subject',
+                                        'value' => $metadata['departmentName']
+                                    ];
+                                    $traits[] = [
+                                        'trait_type' => 'Issue Date',
+                                        'value' => $metadata['issuedDate']
+                                    ];
+
+                                    $contractAddress = '0x1313220d5FCeEaB2A3e675621587E5E50589a1b0';
+
+                            }
+
+                            // foreach ($metadata as $key => $value) {
+                            //     if(!empty($value)) {
+                            //         $traits[] = [
+                            //             'trait_type' => $key,
+                            //             'value' => $value
+                            //         ];    
+                            //     }
+                                
+                            // }
+
+                            // // Optionally remove a specific trait
+                            // foreach ($traits as $key => $trait) {
+                            //     if (isset($trait['trait_type']) && $trait['trait_type'] === 'UniqueHash') {
+                            //         unset($traits[$key]);
+                            //         break; // Stop after removing it
+                            //     }
+                            // }
+
+                            // Reindex and reverse
+                            $decodedResponse['nft']['traits'] = array_values($traits);
+
+                            // Assign to your output data
+                            $dataR['data'] = $decodedResponse['nft']['traits'];
+
+                            // echo "<pre>";
+                            // print_r($dataR['data']);
+                            // echo "</pre>";
+
+                            // die();
+
+                            $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+                            $path = $protocol.'://'.$subdomain[0].'.'.$subdomain[1].'.com/';
+                            $pdf_url=$path.$subdomain[0]."/backend/pdf_file/".$studentData['certificate_filename'];
+
+                            if($subdomain[0] == 'aiimsnagpur') {
+                                $dataR['name'] = 'Degree Certificate';
+                                $dataR['description'] = 'AIIMS Nagpur';
+                            } else {
+                                $dataR['name'] = 'Certificate';
+                                $dataR['description'] = 'Dr. Balasaheb Sawant Konkan Krishi Vidyapeeth, Dapoli, Ratnagiri';
+                            }
+                            
+
+                            $dataR['pdfUrl'] = $pdf_url;
+                            $dataR['dirPdfUrl'] = $pdf_url;
+
+
+                            $dataR['contractAddress'] = $contractAddress;
+                            $dataR['walletID'] = '';
+                            $dataR['txnHash']=$data['result']['txHash'];
+
+                            $dataR['polygonTxnUrl']="https://polygonscan.com/tx/".$data['result']['txHash'];
+
+
+                            $data=$dataR;
+
+                            $status = 'success';
+                            $responseTime = microtime(true) - LARAVEL_START;
+                            $api_tracker_id = Self::insertTracker($url,$requestMethod,$requestParameters,$dataR,$status,$responseTime,'retreiveDetailsV2');
+                            
+
+                            $data['status']=200;  
+                            return response()->json($data);
+
+                            // return view('bverify_new.index',compact('data'));
+
+                        } else {
+                            $data['status']=400;  
+                            $data['message']="We are not able to fetch details currently.<br> Please try after sometime."; 
+                            // $data['message']="Opps! We are not able to fetch details currently.<br> Please try after sometime."; 
+                            // return view('bverify_new.failed',compact('data'));
+                            return response()->json($data);
+                        }
+
+                        
+
+
+                    }
+
+
+
+                    if($tokenData) {
+                        $token_id = $tokenData->token_id;
+
+                    } else {
+
+                        $directoryUrlForward="C:/Inetpub/vhosts/seqrdoc.com/httpdocs/demo/public/blockchain_script/";
+                        $directoryUrlBackward="C:\\Inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\public\\blockchain_script\\";
+                        $pyscript = $directoryUrlBackward."Python_files\\fetch_token_script.py";
+                        // $cmd =  escapeshellarg($pyscript) ." 2>&1";
+                        $txnHash = $studentData['bc_txn_hash'];
+                        $cmd =  "$pyscript $txnHash 2>&1";
+                        // $cmd = "$pyscript $template_id $fullpath $directoryUrlForward $servername $db_username $password $dbName $instance_name 2>&1"; // 
+                        // exec($cmd, $output, $return);
+                        exec('C:/Users/Administrator/AppData/Local/Programs/Python/Python38/python.exe '.$cmd, $output, $return);
+
+                        // exec('Python '.$cmd, $output, $return);
+                        // exec('D:/pdf2pdf_env/Scripts/python.exe '.$cmd, $output, $return);
+                        $jsonString = str_replace("'", '"', $output[1]);
+                        $data = json_decode($jsonString, true);
+                        // print_r($data);
+                        // die();
+                        // Step 3: Access the token_id
+                        $token_id = $data['token_id'] ?? null;
+
+                        if($token_id) {
+                            // DB::table('blockchain_other_data')->insert([
+                            //     'student_table_id' => $studentData['id'],
+                            //     'token_id' => $token_id,
+                            // ]);
+                            DB::table('blockchain_other_data')->updateOrInsert(
+                                ['student_table_id' => $studentData['id']], // Condition
+                                ['token_id' => $token_id]                   // Data to insert or update
+                            );
+                        }
+
+                    }
+                    
+                    $contractData = DB::table('bc_smart_contracts')
+                            ->select('wallet_address','smart_contract_address')
+                            ->where('id','=',$studentData['bc_sc_id'])
+                            ->first();  
+
+                    
+                    if(!empty($contractData)){
+                        $walletID = $contractData->wallet_address;
+                        $contractAddress = $contractData->smart_contract_address;
+                    } else {
+                        if($studentData['template_type'] == 0 ) {
+
+                            $checkContact = TemplateMaster::select('bc_contract_address')->where('id',$studentData['template_id'])->first();
+
+                            $contractAddress = $checkContact['bc_contract_address'];
+
+
+                        } elseif ($studentData['template_type'] == 1) {
+                            $checkContract = DB::table("uploaded_pdfs")
+                               ->select('bc_contract_address')
+                               ->where('id',$studentData['template_id'])
+                               ->get();
+                               
+                            if($checkContract&&!empty($checkContract[0]->bc_contract_address)){  
+                                $contractAddress = $checkContract[0]->bc_contract_address;
+                            } else {
+                                $contractAddress = "";
+                            }
+                        } elseif ($studentData['template_type'] == 2) {
+                            // $checkContract = DB::table("uploaded_pdfs")
+                            //    ->select('bc_contract_address')
+                            //    ->where('id',$studentData['template_id'])
+                            //    ->get();
+                               
+                            // if($checkContract&&!empty($checkContract[0]->bc_contract_address)){  
+                            //     $contractAddress = $checkContract[0]->bc_contract_address;
+                            // } else {
+                            //     $contractAddress = "";
+                            // }
+
+                            if( $subdomain[0] == 'aiimsnagpur'){
+                                 $contractAddress = "0x80c62d9e50c7F221fE31c46939165532699b09A2";
+                            }else{
+                                $checkContact = TemplateMaster::select('bc_contract_address')->where('id',$studentData['template_id'])->first();
+
+                            $contractAddress = $checkContact['bc_contract_address'];
+ 
+                            }
+                           
+                        } 
+                        //0:Template Maker, 2:Custom Template, 1: PDF2PDF
+
+                    }
+                    // $contractAddress = $contractAddress.'dasdas';
+
+                    // echo "run";
+                    // die();
+                    $response = $this->fetchNFTWithCurl($contractAddress,$token_id);
+
+
+
+                    $decodedResponse = json_decode($response, true);
+
+                    
+
+                    if (!isset($decodedResponse['errors']) || !is_array($decodedResponse['errors'])) {
+
+                        //$response['status']=200;
+                        $nftData = $decodedResponse['nft'] ?? null;
+
+                        // if($subdomain[0] == 'anu') {
+                        //     echo "<pre>";
+                        //     print_r($decodedResponse);
+                        //     die();
+
+                        // }
+
+                        
+                        // if($subdomain[0] == 'mitwpu') {
+                        //     echo "<pre>";
+                        //     print_r($decodedResponse);
+                        // }
+                        $url = $nftData['metadata_url']; // Replace with your JSON URL
+
+                        if(empty($url )) {
+
+
+                            // if($subdomain[0] == 'mitwpu') {
+                                $this->refreshBlockchainData($contractAddress,$token_id);
+                            // }
+
+                            $data['status']=400;  
+                            $data['message']="We are not able to fetch details currently.<br> Please try after sometime."; 
+                            // $data['message']="Opps! We are not able to fetch details currently.<br> Please try after sometime."; 
+                            // return view('bverify_new.failed',compact('data'));
+                            return response()->json($data);
+
+                                
+                        }
+
+
+                        // // Remove the 'https://ipfs.io/ipfs/' part
+                        // $trimmed = str_replace("https://ipfs.io/ipfs/", "", $url);
+
+                        // // Split into CID and the rest
+                        // $parts = explode("/", $trimmed, 2);
+
+                        // // Build new URL
+                        // $url = "https://" . $parts[0] . ".ipfs.w3s.link/" . $parts[1];
+
+
+                        // Step 1: Remove the pinata URL prefix
+                        // $url = str_replace("opensea-private.mypinata.cloud/ipfs/", "", $url);
+
+                        // // Step 2: Replace first '/' with '.ipfs.w3s.link/'
+                        // $url = preg_replace("#/#", ".ipfs.w3s.link/", $url, 1);
+                        // echo $url;
+                        // die();
+
+                        // preg_match("#(?:ipfs://|/ipfs/)([^/]+)/#", $url, $matches);
+                        // // print_r($matches);
+                        // // die();
+                        // $url = $matches[1];
+
+                        // $url = "https://" . $matches[1] . ".ipfs.w3s.link/" . $matches[2];
+                        // echo $url;
+                        // die();
+                        // if($subdomain[0] == 'mitwpu') {
+                        //     $url = preg_replace(
+                        //         "#ipfs://([^/]+)/(.*)#",
+                        //         "https://$1.ipfs.w3s.link/$2",
+                        //         $url
+                        //     );
+                        // } else {
+                        //     $url = preg_replace("#https://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/#", "https://$1.ipfs.w3s.link/", $url);
+                        // }
+                        
+                        // if($subdomain[0] == 'anu') {
+                        //     echo $url;
+                        //     die();
+                        // }
+                        // Uddated on 04-07-2025 by Rohit
+                        $original_url = $url;
+
+                        echo "<pre>";
+                        print_r($nftData);
+                        die();
+                        $url = $this->convertToW3sLink($url);
+                        
+                        // echo $url;
+                        // die();
+
+                        // echo $url;
+                        // die();
+                        // Download and save the JSON file
+
+                        
+
+                        // print_r($url);
+                        // die();
+                        // $metadata_url = file_get_contents($url);
+
+
+                        // $metadata_url = @file_get_contents($url);
+
+
+                        // if ($metadata_url === false) {
+                        //     // If failed, build alternate URL
+                        //     // Extract CID from the original url
+                        //     preg_match('/ipfs\/([^\/]+)/', $url, $matches);
+                        //     if (isset($matches[1])) {
+                        //         $cid = $matches[1];
+                        //         $altUrl = "https://{$cid}.ipfs.w3s.link/metadata.json";
+
+                        //         $metadata_url = @file_get_contents($altUrl); 
+                                
+                        //         if ($metadata_url === false) {
+                        //             $pdfUrl = $nftData['image_url'] ?? null;
+                        //         } else {
+                        //             $metadata_data = json_decode($metadata_url, true);
+                        //             $pdfUrl = $metadata_data['image'] ?? null;
+                        //         }
+                        //     }
+                        // }
+
+                        
+                        $pdfUrl = $this->fetchMetadataImage($url, $decodedResponse['nft']['image_url'] ?? null,$original_url);
+
+                        
+                        
+                        if($subdomain[0] == 'mitwpu') {
+                            $pdfUrl = $nftData['image_url'] ?? null;
+                        }   
+                        // $pdfUrl = $nftData['image_url'] ?? null;
+
+                        // $nftData['metadata_url']
+
+                        // echo $url;
+                        // echo "<br>";
+                        $dataR['name'] = $nftData['name'] ? $nftData['name'] : '';
+                        $dataR['description'] = $nftData['description'] ? $nftData['description'] : '';
+
+                        // echo $original_url;
+                        // die();
+                        // $attributes = $this->fetchMetadataAttributes($url, [], $original_url);
+
+                        // Example output
+                        // foreach ($attributes as $attr) {
+                        //     // echo $attr['trait_type'] . " : " . $attr['value'] . "<br>";
+                        // }
+
+                        // echo "<pre>";
+                        // print_r($traits);
+                        // echo "<br>";
+                        // Loop through the traits and remove the one with trait_type = 'UniqueHash'
+                        // foreach ($attributes as $key => $trait) {
+                        //     // print_r($trait);
+                        //     // echo "<br>";
+                        //     if (isset($trait['value']) && (strtolower(trim($trait['value'])) === 'nan' || trim($trait['value']) === '')) {
+                        //         unset($traits[$key]);
+                        //     }
+                            
+                        //     if (isset($trait['trait_type'])  && $trait['trait_type'] === 'UniqueHash') {
+                        //         unset($traits[$key]);
+                        //         break; // Stop after removing it
+                        //     }
+                        // }
+                        // Update the original array if needed
+                        // $decodedResponse['nft']['traits'] = array_values($traits); // Reindex the array
+                        
+                        // if($subdomain[0] =='anu') {
+
+                            // $dataR['data'] = $attributes;
+                            // $dataR['data'] = $decodedResponse['nft']['traits'];
+                        // } else {
+                            // $dataR['data'] = array_reverse($decodedResponse['nft']['traits']);
+                        // }
+        
+                        $attributes = $this->fetchMetadataAttributes($url, [], $original_url);
+                        $dataR['data'] = $attributes;
+
+                        //  Running Code
+                        // $traits = $decodedResponse['nft']['traits'] ?? [];
+
+                        // // Loop through the traits and remove the one with trait_type = 'UniqueHash'
+                        // foreach ($traits as $key => $trait) {
+                        //     if (isset($trait['trait_type']) && $trait['trait_type'] === 'UniqueHash') {
+                        //         unset($traits[$key]);
+                        //         break; // Stop after removing it
+                        //     }
+                        // }
+
+                        
+                        
+
+                        
+                        // // Update the original array if needed
+                        // $decodedResponse['nft']['traits'] = array_values($traits); // Reindex the array
+                        // // $dataR['data'] = array_reverse($decodedResponse['nft']['traits']);
+                        // $dataR['data'] = $decodedResponse['nft']['traits'];
+
+
+                        $dataR['contractAddress']=$contractAddress;  
+
+                        // echo "<pre>";
+                        // print_r($decodedResponse);
+                        // die();
+
+                        $owners = $decodedResponse['nft']['owners'] ?? [];
+
+                        if (!empty($owners) && isset($owners[0]['address'])) {
+                            $dataR['walletID']=$owners[0]['address'];
+                        } else{ 
+                            $dataR['walletID'] = '-';
+                        }
+
+                        $dataR['IPFS_URL'] =  $pdfUrl;
+                        $dataR['pdfUrl'] = $pdfUrl;
+
+
+                        // if($subdomain[0] == 'mitwpu') {
+                        //     echo "<pre>";
+                        //     print_r($dataR);
+                        // }
+
+                        // if (strpos($dataR['IPFS_URL'], 'https') !== 0) {
+                        //     // Add 'https://' prefix if not already present
+                        //     $dataR['pdfUrl'] = "https://ipfs.io/ipfs/" . substr($dataR['IPFS_URL'], 7);
+
+
+                        //     $url = $dataR['pdfUrl']; // Replace with your JSON URL
+
+                        //     // Remove the 'https://ipfs.io/ipfs/' part
+                        //     $trimmed = str_replace("https://ipfs.io/ipfs/", "", $url);
+
+                        //     // Split into CID and the rest
+                        //     $parts = explode("/", $trimmed, 2);
+
+                        //     // Build new URL
+                        //     $dataR['pdfUrl'] = "https://" . $parts[0] . ".ipfs.w3s.link/" . $parts[1];
+
+                        // } else {
+                        //     // Use IPFS_URL as-is if it already starts with 'https'
+                        //   //  $dataR['pdfUrl'] = $dataR['IPFS_URL'];
+
+                        //     $url = $dataR['IPFS_URL']; // Replace with your JSON URL
+
+                        //     // Remove the 'https://ipfs.io/ipfs/' part
+                        //     $trimmed = str_replace("https://ipfs.io/ipfs/", "", $url);
+
+                        //     // Split into CID and the rest
+                        //     $parts = explode("/", $trimmed, 2);
+
+                        //     // Build new URL
+                        //     $dataR['pdfUrl'] = "https://" . $parts[0] . ".ipfs.w3s.link/" . $parts[1];
+
+                        // }
+                        // Local path of pdf
+                        // $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+                        // $path = $protocol.'://'.$subdomain[0].'.'.$subdomain[1].'.com/';
+                        // $pdf_url=$path.$subdomain[0]."/backend/pdf_file/".$studentData['certificate_filename'];
+                        // $dataR['dirPdfUrl'] = $pdf_url;
+                        // if($subdomain[0] =='anu') {
+                        //     $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+                        //     $domain = \Request::getHost();
+                        //     $path = $protocol.'://'.$domain.'/';
+
+                        //     // echo $domain;
+                        //     // die();
+                        //     $pdf_url=$path.$subdomain[0]."/backend/pdf_file/".$studentData['certificate_filename'];
+
+                        //     // $dataR['pdfUrl'] = $pdfUrl;
+                        //     $dataR['dirPdfUrl'] = $pdf_url;
+
+                        // }
+                        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+
+                        if (($subdomain[0] ?? '') === 'anu') {
+                            // Use full host for 'anu' subdomain
+                            $domain = \Request::getHost();
+                            $dataR['dirPdfUrl'] = "{$protocol}://{$domain}/{$subdomain[0]}/backend/pdf_file/{$studentData['certificate_filename']}";
+                        } else {
+                            // Default format
+                            $subdomainPrefix = $subdomain[0] ?? 'www';
+                            $subdomainDomain = $subdomain[1] ?? 'example'; // fallback
+                            $dataR['dirPdfUrl'] = "{$protocol}://{$subdomainPrefix}.{$subdomainDomain}.com/{$subdomainPrefix}/backend/pdf_file/{$studentData['certificate_filename']}";
+                        }
+
+
+
+
+                        // if($subdomain[0]=="demo"){
+                            $dataR['polygonTxnUrl']="https://polygonscan.com/tx/".$studentData['bc_txn_hash'];
+                        // }else{
+                        //     $dataR['polygonTxnUrl']="https://mumbai.polygonscan.com/tx/".$studentData['bc_txn_hash'];    
+                        // }
+
+                        // if($subdomain[0] =='anu') {
+                        //     echo "<pre>";
+                        //     print_r($dataR);
+                        //     // echo $dataR['pdfUrl'];
+                        //     // die();
+                        // }
+                        $dataR['txnHash']=$studentData['bc_txn_hash'];
+                        
+                        
+                        $data=$dataR;
+
+                        // print_r( $data);
+                        // exit();
+
+                        $data['status']=200;  
+                        return response()->json($data);
+                        // return view('bverify_new.index',compact('data'));
+                    }else{
+                        $data['status']=400;  
+                        // $data['message']="Opps! We are not able to fetch details currently.<br> Please try after sometime."; 
+                        $data['message']="We are not able to fetch details currently.<br> Please try after sometime."; 
+                        // return view('bverify_new.failed',compact('data'));
+                        return response()->json($data);
+                            
+                    }
+                    
+
+                }else{
+                    // $response['status']=400;
+                    // $response['message']="Data not found.";
+                    $data['status']=400;  
+                    // $data['message']="Opps! We are not able to fetch details currently.<br> Something went wrong."; 
+                    $data['message']="We are not able to fetch details currently.<br> Something went wrong."; 
+                    // return view('bverify_new.failed',compact('data'));
+                    return response()->json($data);
+                }
+
+
+            }else{
+                // $response['status']=400;   
+                // $response['message']="Key not found."; 
+                $data['status']=400;  
+                $data['message']="We are not able to fetch details currently.<br> Something went wrong."; 
+                // $data['message']="Opps! We are not able to fetch details currently2.<br> Something went wrong."; 
+                // return view('bverify_new.failed',compact('data'));
+                return response()->json($data);
+            }
+
+        }else{
+            // $response['status']=400;
+            // $response['message']="Key not found.";
+            $data['status']=400;  
+            // $data['message']="Opps! We are not able to fetch details currently.<br> Something went wrong."; 
+            $data['message']="We are not able to fetch details currently.<br> Something went wrong."; 
+            // return view('bverify_new.failed',compact('data'));
+            return response()->json($data);
+        }
+        
+       // $response['message']="Details not found.";
+        return $response;
+    }
+    
+
+    function fetchMetadataImage(string $url, ?string $fallback = null,$original_url): ?string {
+
+        
+
+
+
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => $timeout,
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => true,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // echo $url;
+        // die();
+
+        if ($response === false || $httpCode !== 200) {
+            if (strpos($original_url, 'ipfs://') === 0) {
+                $url = str_replace('ipfs://', 'https://gateway.lighthouse.storage/ipfs/', $original_url);
+
+                $ch = curl_init();
+                curl_setopt_array($ch, [
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => $timeout,
+                    CURLOPT_CONNECTTIMEOUT => 3,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_SSL_VERIFYPEER => true,
+                ]);
+
+                $response = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+            }
+        }
+        
+        if ($response !== false && $httpCode === 200) {
+
+
+            $metadata = json_decode($response, true);
+            return $metadata['image'] ?? $fallback;
+        }
+
+        return $fallback;
+    }
+    
+
+    function fetchMetadataAttributes(string $url, ?array $fallback = [], string $original_url, int $timeout = 5): ?array
+    {
+        //  Initialize first request
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => $timeout,
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => true,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+       
+        // print_r($url);
+        // die();
+        //  Retry using IPFS gateway if the first request fails
+        if ($response === false || $httpCode !== 200) {
+            if (strpos($original_url, 'ipfs://') === 0) {
+                $url = str_replace('ipfs://', 'https://gateway.lighthouse.storage/ipfs/', $original_url);
+
+                $ch = curl_init();
+                curl_setopt_array($ch, [
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => $timeout,
+                    CURLOPT_CONNECTTIMEOUT => 3,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_SSL_VERIFYPEER => true,
+                ]);
+
+                $response = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+            }
+        }
+
+        //  If successful, decode and return attributes
+        if ($response !== false && $httpCode === 200) {
+            $metadata = json_decode($response, true);
+
+            // Normalize attribute structure
+            $attributes = $metadata['attributes'] ?? ($metadata['nft']['traits'] ?? []);
+
+            // Filter unwanted traits
+            $attributes = array_filter($attributes, function ($trait) {
+                // Skip invalid or nan/empty values
+                if (!isset($trait['value']) || strtolower(trim($trait['value'])) === 'nan' || trim($trait['value']) === '') {
+                    return false;
+                }
+
+                // Skip UniqueHash entry
+                if (isset($trait['trait_type']) && $trait['trait_type'] === 'UniqueHash') {
+                    return false;
+                }
+
+                return true;
+            });
+
+            return array_values($attributes); // reindex cleanly
+        }
+
+        //  Fallback return
+        return $fallback;
+    }
+
+    public function fetchNFTWithCurl($contract, $tokenId)
+    {
+
+        $domain = \Request::getHost();
+        $subdomain = explode('.', $domain);
+
+        $requestMethod='GET';
+        $requestParameters['contract']=$contract;
+        $requestParameters['tokenId']=$tokenId;
+
+        $requestUrl = "https://api.opensea.io/api/v2/chain/matic/contract/".$contract."/nfts/".$tokenId;     
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+        CURLOPT_URL => "https://api.opensea.io/api/v2/chain/matic/contract/".$contract."/nfts/".$tokenId,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+            "accept: application/json",
+            "x-api-key: 097305d830754a65ab17bfe981624603"
+        ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+
+                  
+        $decodedResponse = json_decode($response, true);
+            
+        // if($subdomain[0] =='mitwpu') {
+            // echo "<pre>";
+            // print_r($decodedResponse);
+            // die();
+        // }
+
+        if ($err) {
+            $status = 'failed';
+
+            $responseTime = microtime(true) - LARAVEL_START;
+            $api_tracker_id = Self::insertTracker($requestUrl,$requestMethod,$requestParameters,$decodedResponse,$status,$responseTime,'retreiveDetailsV1');
+            return  "cURL Error #:" . $err;
+        } else {
+            $status = 'success';
+            $responseTime = microtime(true) - LARAVEL_START;
+
+
+
+            //$response['status']=200;
+            $nftData = $decodedResponse['nft'] ?? null;
+           
+            
+
+            $url = $nftData['metadata_url'];
+
+            if($url)  {
+
+                // echo $subdomain[0];
+                // die();
+
+
+                // $url = "https://opensea-private.mypinata.cloud/ipfs/bafyreibejg2jraxjqcdzfpcjxuo2ruf7ruetnkafsolb3hyzoy5f2vi3fy/metadata.json";
+
+                // Step 1: Remove the pinata URL prefix
+                // $url = str_replace("https://opensea-private.mypinata.cloud/ipfs/", "", $url);
+
+                // Step 2: Replace first '/' with '.ipfs.w3s.link/'
+                // $url = preg_replace("#/#", ".ipfs.w3s.link/", $url, 1);
+                // $url = preg_replace("#https://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/#", "https://$1.ipfs.w3s.link/", $url);
+                // if($subdomain[0] =='mitwpu') {
+
+                //     $url = preg_replace(
+                //         "#ipfs://([^/]+)/(.*)#",
+                //         "https://$1.ipfs.w3s.link/$2",
+                //         $url
+                //     );
+                // } else {
+                //     $url = preg_replace("#https://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/#", "https://$1.ipfs.w3s.link/", $url);
+                // }
+
+                // if($subdomain[0] == 'verification') {
+                //     echo "<pre>";
+                //     print_r($decodedResponse);
+
+                    // echo $url;
+                    // echo "<br>";
+                    // die();
+                // }
+                $original_url = $url;
+                $url = $this->convertToW3sLink($url);
+                // if($subdomain[0] == 'verification') {
+                //     echo $url;
+                //     die();
+                // }
+
+                // https://bafybeih2uwamwdiry2o7fwbratsa2vuzc7jxdv5xxwhrrfzzinznci2rpm.ipfs.w3s.link/metadata.json
+
+                // if($subdomain[0] =='anu') {
+                //     echo $url;
+                //     die();
+                // }
+
+                // Remove the 'https://ipfs.io/ipfs/' part
+                // $trimmed = str_replace("https://ipfs.io/ipfs/", "", $url);
+
+                // // Split into CID and the rest
+                // $parts = explode("/", $trimmed, 2);
+
+                // // Build new URL
+                // $url = "https://" . $parts[0] . ".ipfs.w3s.link/" . $parts[1];
+
+
+               // $url = $nftData['metadata_url']; // Replace with your JSON URL
+                
+                // Download and save the JSON file
+                // $url = str_replace('https:.', '', $url);
+                
+                // $metadata_url = file_get_contents($url);
+                // $metadata_url = @file_get_contents($url);
+
+
+                // if ($metadata_url === false) {
+                //     // If failed, build alternate URL
+                //     // Extract CID from the original url
+                //     preg_match('/ipfs\/([^\/]+)/', $url, $matches);
+                //     if (isset($matches[1])) {
+                //         $cid = $matches[1];
+                //         $altUrl = "https://{$cid}.ipfs.w3s.link/metadata.json";
+
+                //         $metadata_url = @file_get_contents($altUrl);   
+
+                //         if ($metadata_url === false) {
+                //             $pdfUrl = $nftData['image_url'] ?? null;
+                //         } else {
+                //             $metadata_data = json_decode($metadata_url, true);
+                //             $pdfUrl = $metadata_data['image'] ?? null;
+                //         }
+                        
+
+
+                //     }
+                // }
+
+                $pdfUrl = $this->fetchMetadataImage($url, $decodedResponse['nft']['image_url'] ?? null,$original_url);
+
+            } else {
+                $metadata_url = '';
+            }
+            
+            
+            $dataR['success'] = 200;
+            $dataR['message'] = "Valid Document";
+            $dataR['name'] = $nftData['name'] ? $nftData['name'] : '';
+            $dataR['description'] = $nftData['description'] ? $nftData['description'] : '';
+
+            $traits = $decodedResponse['nft']['traits'] ?? [];
+
+            // Loop through the traits and remove the one with trait_type = 'UniqueHash'
+            foreach ($traits as $key => $trait) {
+                if (isset($trait['trait_type']) && $trait['trait_type'] === 'UniqueHash') {
+                    unset($traits[$key]);
+                    break; // Stop after removing it
+                }
+            }
+            // Update the original array if needed
+            $decodedResponse['nft']['traits'] = array_values($traits); // Reindex the array
+            $dataR['data'] = array_reverse($decodedResponse['nft']['traits']);
+
+
+            $dataR['contractAddress']=$contractAddress;  
+
+            // echo "<pre>";
+            // print_r($decodedResponse);
+            // die();
+
+            $owners = $decodedResponse['nft']['owners'] ?? [];
+
+            if (!empty($owners) && isset($owners[0]['address'])) {
+                $dataR['walletID']=$owners[0]['address'];
+            } else{ 
+                $dataR['walletID'] = '-';
+            }
+
+            $dataR['IPFS_URL'] =  $pdfUrl;
+            
+            if (strpos($dataR['IPFS_URL'], 'https') !== 0) {
+                // Add 'https://' prefix if not already present
+                $dataR['pdfUrl'] = "https://ipfs.io/ipfs/" . substr($dataR['IPFS_URL'], 7);
+            } else {
+                // Use IPFS_URL as-is if it already starts with 'https'
+                //$dataR['pdfUrl'] = $dataR['IPFS_URL'];
+
+
+                $url = $dataR['IPFS_URL'];
+
+                // Remove the 'https://ipfs.io/ipfs/' part
+                $trimmed = str_replace("https://ipfs.io/ipfs/", "", $url);
+
+                // Split into CID and the rest
+                $parts = explode("/", $trimmed, 2);
+
+                // Build new URL
+                $dataR['pdfUrl'] = "https://" . $parts[0] . ".ipfs.w3s.link/" . $parts[1];
+
+            }
+
+            $dataR['polygonTxnUrl']="https://polygonscan.com/tx/".$studentData['bc_txn_hash'];
+  
+
+            $dataR['txnHash']=$studentData['bc_txn_hash'];
+
+            $api_tracker_id = Self::insertTracker($requestUrl,$requestMethod,$requestParameters,$dataR,$status,$responseTime,'retreiveDetailsV1');
+
+            return  $response;
+        }
+
+        // if ($err) {
+        //     // Return error response in JSON
+        //     return json_encode([
+        //         'status' => 'error',
+        //         'message' => "cURL Error: $err"
+        //     ]);
+        // } else {
+        //     // Decode the response to check if it's valid JSON
+        //     $decodedResponse = json_decode($response, true);
+
+        //     if (json_last_error() === JSON_ERROR_NONE) {
+        //         // Return success response with the API data
+        //         return json_encode([
+        //             'status' => 'success',
+        //             'data' => $decodedResponse
+        //         ]);
+        //     } else {
+        //         // Handle cases where response is not valid JSON
+        //         return json_encode([
+        //             'status' => 'error',
+        //             'message' => 'Invalid JSON response from API'
+        //         ]);
+        //     }
+        // }
+
+
+
+        // return $err ? response()->json(['error' => $err]) : response()->json(json_decode($response, true));
+    }
+
+    public function refreshBlockchainData($contract, $tokenId) {
+
+        $requestParameters['contract']=$contract;
+        $requestParameters['tokenId']=$tokenId;
+
+
+        $url = "https://api.opensea.io/api/v2/chain/polygon/contract/".$contract."/nfts//".$tokenId."/refresh";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "X-API-KEY: 097305d830754a65ab17bfe981624603"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        $decodedResponse = json_decode($response, true);
+        if ($err) {
+            // echo "cURL Error #: " . $err;
+            $status = 'failed';
+
+            $responseTime = microtime(true) - LARAVEL_START;
+            $api_tracker_id = Self::insertTracker($url,'POST',$requestParameters,$decodedResponse,$status,$responseTime,'refreshBlockchainData');
+        } else {
+            // echo $response;
+            $status = 'success';
+
+            $responseTime = microtime(true) - LARAVEL_START;
+            $api_tracker_id = Self::insertTracker($url,'POST',$requestParameters,$decodedResponse,$status,$responseTime,'refreshBlockchainData');
+        }
+
+
+    }
+
+
+    function convertToW3sLink($url) {
+        if (!$url) return $url;
+
+        // 1. ipfs:// scheme
+        if (strpos($url, 'ipfs://') === 0) {
+            $withoutPrefix = substr($url, 7);
+            $parts = explode('/', $withoutPrefix, 2);
+            $hash = $parts[0];
+            $path = $parts[1] ?? '';
+            return "https://{$hash}.ipfs.w3s.link" . ($path ? "/{$path}" : "");
+        }
+
+        // 2. ipfs.io URLs
+        if (preg_match("#https?://ipfs\.io/ipfs/([^/]+)(/.*)?#", $url, $matches)) {
+            $hash = $matches[1];
+            $path = isset($matches[2]) ? ltrim($matches[2], '/') : '';
+            return "https://{$hash}.ipfs.w3s.link/{$path}";
+        }
+
+        // 3. Pinata (opensea-private) URLs
+        if (preg_match("#https?://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/(.*)#", $url, $matches)) {
+            $hash = $matches[1];
+            $path = $matches[2];
+            return "https://{$hash}.ipfs.w3s.link/{$path}";
+        }
+
+        // 4. Plain hash without protocol
+        if (!preg_match("#^https?://#", $url)) {
+            $parts = explode('/', $url, 2);
+            $hash = $parts[0];
+            $path = $parts[1] ?? '';
+            return "https://{$hash}.ipfs.w3s.link" . ($path ? "/{$path}" : "");
+        }
+
+        // 5. If URL already formatted or none matched, return original
+        return $url;
+    }
+    
+    // Commented on 30-09-2025 By Rohit
+    // function convertToW3sLink($url) {
+    //     // If URL starts with ipfs://
+    //     if (strpos($url, 'ipfs://') === 0) {
+    //         // Remove ipfs:// prefix
+    //         // $url = substr($url, 7);
+    //         $hash = substr($url, 7);
+    //         return "https://ipfs.io/ipfs/{$hash}";
+    //     }
+
+    //     // If URL is from ipfs.io gateway
+    //     if (preg_match("#https://ipfs\.io/ipfs/([^/]+)(/.*)?#", $url, $matches)) {
+    //         $hash = $matches[1];
+    //         $path = isset($matches[2]) ? ltrim($matches[2], '/') : '';
+    //         return "https://{$hash}.ipfs.w3s.link/{$path}";
+    //     }
+
+    //     // If URL is Pinata opensea-private
+    //     if (preg_match("#https://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/(.*)#", $url, $matches)) {
+    //         $hash = $matches[1];
+    //         $path = $matches[2];
+    //         return "https://{$hash}.ipfs.w3s.link/{$path}";
+    //     }
+
+    //     // If plain hash without protocol
+    //     if (!preg_match("#^https?://#", $url) && preg_match("#^([^/]+)(/.*)?#", $url, $matches)) {
+    //         $hash = $matches[1];
+    //         $path = isset($matches[2]) ? ltrim($matches[2], '/') : '';
+    //         return "https://{$hash}.ipfs.w3s.link/{$path}";
+    //     }
+
+    //     // If already formatted or none matched, return original
+    //     return $url;
+    // }
+    
+    function convertToW3sLink_old($url) {
+        // If URL starts with ipfs://
+        if (strpos($url, 'ipfs://') === 0) {
+            // Remove ipfs:// prefix
+            $url = str_replace('ipfs://', '', $url);
+            
+            // Split hash and path
+            $parts = explode('/', $url, 2);
+            $hash = $parts[0];
+            $path = isset($parts[1]) ? $parts[1] : '';
+            
+            // Build w3s link
+            return "https://{$hash}.ipfs.w3s.link/{$path}";
+        }
+
+        // If URL is Pinata opensea-private
+        if (preg_match("#https://opensea-private\.mypinata\.cloud/ipfs/([^/]+)/(.*)#", $url, $matches)) {
+            $hash = $matches[1];
+            $path = $matches[2];
+            
+            // Build w3s link
+            return "https://{$hash}.ipfs.w3s.link/{$path}";
+        }
+
+        // If none matched, return original
+        return $url;
+    }
+
+
+    public function decodeCustomLogic($token){
+        $key="";
+        $APIKey="57r3edp5MkLzIbCsA4iPJW8I3yeojqaPK+pd3gRPiZ4=";
+
+        $fromKey = base64_decode($APIKey);
+
+        //exit;
+        //$toKey = base64_decode("to_key_as_a_base_64_encoded_string");
+        $cipher = "AES-256-CBC"; //or AES-128-CBC if you prefer
+
+        //Create two encrypters using different keys for each
+        $encrypterFrom = new Encrypter($fromKey, $cipher);
+        //$encrypterTo = new Encrypter($toKey, $cipher);
+
+        //Decrypt a string that was encrypted using the "from" key
+        // $decryptedFromString = $encrypterFrom->decryptString($token);
+        //Decrypt a string that was encrypted using the "from" key
+        try{
+            $decryptedFromString = $encrypterFrom->decryptString($token);
+        }catch(DecryptException $e){
+            $decryptedFromString ='';
+        }
+
+        $string = $decryptedFromString;
+
+        $string = str_replace(';','',$string);
+
+        //echo $string = "s:32:\"1EA6F8CBE03B40E5EE406234CD0FF091\"";
+
+        $pattern = '/^s:(?<length>\d+):\"(?<data>.*?)\"$/';
+
+        if (preg_match($pattern, $string, $matches)) {
+            $dataLength = intval($matches['length']);
+            $data = $matches['data'];
+
+            if (strlen($data) === $dataLength) {
+                // echo "The string is in the format s:<length>:\"<data>\".\n";
+                // echo "Length: $dataLength\n";
+                // echo "Data: $data\n";
+
+                $key = $data;
+            } else {
+            //  echo "The string's length doesn't match the specified length.\n";
+            }
+        } else {
+        // echo "Invalid string format.\n";
+        }
+        return $key;
+    }
+
+
+}
+

@@ -1,0 +1,106 @@
+<?php
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $domain = $_SERVER["SERVER_NAME"];
+    $subdomain = explode('.', $domain);
+   
+    $template_id = 100;
+
+    
+    //print_r($pageType);
+    if(!empty($_POST['pageType']) && $_FILES['field_file']   ) {
+        $pageType = $_POST['pageType'];
+        if (isset($_FILES['field_file']) && $_FILES['field_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/';
+
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/'.$subdomain[0].'/backend/templates/'.$template_id.'/';
+
+            
+            $fileName = basename($_FILES['field_file']['name']);
+            $targetFilePath = $uploadDir . $fileName;
+
+            // Check if the directory exists or create it
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            // Move the uploaded file to the destination directory
+            if (move_uploaded_file($_FILES['field_file']['tmp_name'], $targetFilePath)) {
+                if($pageType == 'Single') {
+                    $pgType = 'sing';
+                } else {
+                    $pgType = 'na';
+                } 
+                $data =  excelToPdf($targetFilePath,$pgType);
+
+                if($data[0] == true) {
+                    $status = 1;
+                } else {
+                    $status = 0;
+                }
+
+                $path = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+                $path .=$_SERVER["SERVER_NAME"];
+                
+                
+                $pdfUrl = str_replace($_SERVER['DOCUMENT_ROOT'],$path,$data[1]);
+                // echo $pdfUrl;
+                $output_array = array( 'status' => $status, 'message' => 'Success', 'link' => $pdfUrl );
+                echo json_encode( $output_array );
+                // $pdfUrl= '<a href="'.$data.'" target="_Blank" >View Converted PDF</a> ';
+                // echo $pdfUrl;
+            } else {
+                $output_array = array( 'status' => $status, 'message' => 'Error uploading file.' );
+                echo json_encode( $output_array );
+                
+            }
+        } else {
+            $output_array = array( 'status' => 0, 'message' => 'No file uploaded or there was an error during the upload.' );
+            echo json_encode( $output_array );
+            //echo 'No file uploaded or there was an error during the upload.';
+        }
+    } else {
+        $output_array = array( 'status' => 0, 'message' => 'Something went wrong.' );
+        echo json_encode( $output_array );
+        // echo 'Something wenr wornf';
+    }
+
+} else {
+    $output_array = array( 'status' => 0, 'message' => 'Invalid request.' );
+    echo json_encode( $output_array );
+    // echo 'Invalid request.';
+}
+
+function excelToPdf($target_file,$pgType) {
+    
+    $excelExe = 'C:\\Program Files\\LibreOffice\\program\\soffice.exe';
+    $input = $target_file;
+    $cmd = 'C:\\wamp64\\www\\uneb\\public\\pdf2pdf\\excel_to_pdf\\final_file.py "'.$excelExe.'" '.$input.' '.$pgType;
+
+    // echo "C:\\Users\\ABC\\AppData\\Local\\Programs\\Python\\Python38\\python.exe " .$cmd;
+    // echo $cmd;
+    // die();
+    exec("C:\\Users\\ABC\\AppData\\Local\\Programs\\Python\\Python38\\python.exe " .$cmd, $output, $return);
+    // exec($cmd, $output, $return);
+    
+    // print_r($output[0]);
+    // echo "<br>";
+    // print_r($return);
+    // Check the return code to see if the execution was successful
+    if ($return === 0) {
+        $result=true;
+        $fileName = $output[0]; 
+    } else {
+        $result=false;
+        $fileName = $output[0];
+        // echo "Error while converting pdf.";
+        // exit;
+    }
+    return $res = [$result,$fileName];
+
+
+}
+
+?>

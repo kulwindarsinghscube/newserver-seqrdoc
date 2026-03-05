@@ -1,0 +1,365 @@
+<!-- <?php 
+session_set_cookie_params(0,'/WebApp/');
+session_start();
+// echo "<pre>";
+// print_r($_SERVER);
+// exit();
+if(isset($_GET['logout'])){
+	if($_GET['logout'] == 'true'){
+		session_destroy();
+		session_set_cookie_params(0,'/WebApp/');
+	}
+}
+if(isset($_SESSION['is_logged'])){
+	if($_SESSION['is_logged'] === 1){
+		header('Location: index.php');
+		exit();
+	}
+}
+
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+    
+    return 'Other';
+}
+
+$get_browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
+?> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?php echo e($sitename); ?> SeQR</title>
+	<link rel="icon" type="image/png" href="assets/images/fav.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo e(asset('/backend/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <!-- MetisMenu CSS -->
+    <link href="<?php echo e(asset('/backend/css/metisMenu.min.css')); ?>" rel="stylesheet" type="text/css" />
+   
+   <!-- Animate CSS -->
+    <link href="<?php echo e(asset('/backend/css/animate.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <!-- Custom CSS -->
+    <link href="<?php echo e(asset('/backend/css/sb-admin-2.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo e(asset('/backend/css/font-awesome.min.css')); ?>" rel="stylesheet" type="text/css" />
+	
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet"> -->
+    <link href="<?php echo e(asset('/backend/css/AbelRoboto.css')); ?>" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="pull-left">
+				<h2 style="font-family: 'Abel', sans-serif; color:#fff;"><?php echo e($sitename); ?> SeQR Web App</h2>
+			</div>
+			<div class="pull-right">
+			<h2>
+				<?php
+            	if(isset($site_data['apple_app_url'])){
+            	?>
+                <a href="<?php echo e($site_data['apple_app_url']); ?>" target="_blank"><img src="<?php echo e(asset('/webapp/images/store.png')); ?>" /></a>
+            	<?php } ?>
+
+            	<?php
+            	if(isset($site_data['android_app_url'])){
+            	?>
+                <a href="<?php echo e($site_data['android_app_url']); ?>" target="_blank"><img src="<?php echo e(asset('/webapp/images/gplay.png')); ?>"/></a>
+                <?php } ?>
+			</h2>
+			</div>
+		</div>
+	</div>
+	<!-- <?php if($get_browser == 'Chrome') { ?>
+	<div class="row" style="margin: 0px auto; width: 1200px;">
+		<div class="col-xs-12">
+			<div class='alert alert-danger alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b> Scaning by web-cam will work only on Mozilla Firefox currently. So open
+the website on Firefox browser. You can download it <a target="_blank" href="https://www.mozilla.org/en-US/firefox/new/">here</a> if you don't have the browser.</b></div>
+		</div>
+	</div>
+	<?php } ?> -->
+	<div class="row">
+		<div class="login-bg clearfix">
+			<div class="title-hdg">
+				<div class="row">
+					<div class="col-xs-9">
+						<h3><?php echo e(__('Reset Password')); ?></h3>
+						<!-- <h6>Dont have an account? Sign up for free!</h6> -->
+					</div>
+					<div class="col-xs-3">
+						<h3><i class="fa fa-fw fa-key"></i><h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-content">
+			  <div id="login-holder" class="tab-pane fade in active">
+				<p>
+					<form method="POST" action="#" class="passwordResetForm" id="passwordResetForm">
+                        <?php echo csrf_field(); ?>
+						<fieldset>
+                            <input type="hidden" name="token" value="<?php echo e($token); ?>">
+							<div class="form-group">
+								<label>Email</label>
+								<input class="form-control input-lg" id="email_id_l" placeholder="enter email_id here" name="email_id" type="text" value="<?php echo e($email ?? old('email')); ?>" readonly>
+								
+                                <span id="email_id_errors" class="help-inline text-danger"><?=$errors->first('email_id')?></span>
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input class="form-control input-lg" id="password_l" placeholder="**********" name="password" type="password" value="" >
+								<i class="fa fa-eye viewpass fa-lg" style="bottom:16px"></i>
+                                <span id="password_errors" class="help-inline text-danger"><?=$errors->first('password')?></span>
+							</div>
+                            <div class="form-group">
+								<label>Confirm Password</label>
+								<input class="form-control input-lg" id="confirm_password_l" placeholder="**********" name="confirm_password" type="password" value="" >
+								<i class="fa fa-eye viewpass fa-lg" style="bottom:16px"></i>
+                                <span id="confirm_password_errors" class="help-inline text-danger"><?=$errors->first('confirm_password')?></span>
+							</div>
+							<span id="credential" class="text-danger"></span>
+							<!-- Change this to a button or input when using this as a form -->
+						  <button type="submit" id="password_reset" class="btn btn-sm btn-block"><i class="fa fa-key"></i> <?php echo e(__('Reset Password')); ?></button>
+						</fieldset>
+					</form>
+				</p>
+			  </div>
+		
+			</div>
+		</div>
+	</div>
+</div>
+<!-- jQuery -->
+<script src="<?php echo e(asset('/backend/js/jquery.min.js')); ?>"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="<?php echo e(asset('/backend/js/bootstrap.min.js')); ?>"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="<?php echo e(asset('/backend/js/metisMenu.min.js')); ?>"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="<?php echo e(asset('/backend/js/sb-admin2.js')); ?>"></script>
+<!-- ToastrJS -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"  type="text/css"> -->
+<!-- JQuery Validation -->
+<link rel="stylesheet" href="<?php echo e(asset('/backend/css/toastr.min.css')); ?>" rel="stylesheet" type="text/css" />
+<script src="<?php echo e(asset('/backend/js/toastr.min.js')); ?>"></script> 
+<script src="<?php echo e(asset('/backend/js/jquery.mockjax.js')); ?>"></script>
+<script src="<?php echo e(asset('/backend/js/jquery.form.js')); ?>"></script>
+<script src="<?php echo e(asset('/backend/js/jquery.validate.js')); ?>"></script>
+</body>
+
+</html>
+<script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip(); 
+	//password_reset ajax
+	//forgot password ajax
+	$("form#passwordResetForm").submit(function(e){
+		e.preventDefault();
+		var token = "<?php echo e(csrf_token()); ?>";
+		if (!$('.passwordResetForm').valid())
+		{
+            return false;
+		}else{
+			var formData = new FormData($(this)[0]);
+			$.ajax({
+	            url: "<?php echo e(route('passwordResetUpdate')); ?>",
+	            type: 'POST',
+	            data: formData,
+                cache: false,
+	            contentType: false,
+	            processData: false,
+	            dataType:'JSON',
+
+                success: function (data) {
+                    if (data.errors) {
+                        var errorString = '';
+                        $.each(data.errors, function (key, value) {
+                            
+                            $('#'+key+'_errors').text(value)
+                            // errorString += '<li>' + value + '</li>';
+                            // $('[name="' + key + '"]').parent('.form-group .hrlp-block').addClass('has-error');
+                            // $('[name="' + key + '"]').next().text(value);
+                        });
+                    } else {
+                        toastr["success"]("password reset successfully.");
+                        window.location.href="<?php echo e(url('/')); ?>";
+                        $('#passwordResetForm')[0].reset();
+                    }
+                }
+
+	            // success: function (data) {
+	            //     if(data.status == true){
+                //         toastr["success"](data.message);
+                //         $('#passwordResetForm')[0].reset();
+                //         //$('#login-holder-btn').click();
+                //     }else{
+                //         toastr.error(data.message);
+                //     }
+	            // },
+                // error:function(resobj){
+                //     toastr.error('Something are wrong');
+                //     $.each(resobj.responseJSON.errors,function(k,v){
+                //         alert(k);
+                //         $('#'+k+'_error').text(v);
+                //     });
+                // }
+	            
+	        });
+		}
+	});
+	
+	// view passowrd textbox and hide
+	$('.viewpass').click(function(){
+
+		$type = $(this).prev('input').attr('type');
+		if($type=="password"){
+			$(this).prev('input').attr('type','text');
+			$(this).addClass('fa-eye-slash red');
+			$(this).removeClass('fa-eye');
+		}else{
+			$(this).prev('input').attr('type','password');
+			$(this).addClass('fa-eye');
+			$(this).removeClass('fa-eye-slash red');
+		}
+	});
+
+
+	
+});
+</script>
+<?php if(isset($_GET['logout'])):?>
+		<script>
+		toastr["success"]("Logged Out Successfully");
+		</script>
+<?php endif;?>
+<style>
+html,body{
+	height:100%;
+	width:100%;
+}
+
+body{
+	background: #0052CC;
+	color:#222;
+	background-size:cover;
+	background-attachment:fixed;
+}
+
+#password_reset{
+	background:#0052CC !important;
+	border:1px solid #0052CC;
+	border-radius:4px;
+	margin-top:30px !important;
+	color:#fff;
+	text-transform:uppercase;
+	font-size:14px;
+	font-weight:700;
+	padding:15px 0;
+}
+
+#password_reset:hover{
+	border-color:#0747A6;
+	background:#0747A6 !important;
+}
+
+*{
+	transition:all ease 0.5s;
+}
+
+.footer-links{
+	color:#fff;
+	position:fixed;
+	bottom:5px;
+	left:0;
+	right:0;
+	text-align:center;
+	font-size:11px;
+}
+
+.login-bg{
+	background:#fff;
+	padding:0 25px 25px 25px;
+	border-radius:4px;
+	width:390px;
+}
+
+.title-hdg{
+	margin-top:10px;
+	margin-bottom:10px;
+	border-bottom:1px solid #ececec;
+	padding:0px 5px ;
+}
+
+.loginform label{
+	color:#5c5c5c;
+}
+
+.help-inline{
+	color: #F44336;
+    display: inline-block;
+    font-size: 12px;
+    position: absolute;
+    /* top: 4px;
+    right: 0; */
+    border-radius: 4px
+}
+
+.form-group{
+	position:relative;
+}
+
+.viewpass{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	cursor:pointer;
+}
+</style>
+<script>
+$(document).ready(function(){
+	alignMiddle();
+
+	$('.nav-pills li a').click(function(){
+		setTimeout(function(){alignMiddle();},500);
+	});
+
+});
+
+function alignMiddle(){
+	$('.login-bg').css({
+        'position' : 'absolute',
+        'left' : '50%',
+        'top' : '50%',
+        'margin-left' : -$('.login-bg').outerWidth()/2,
+        'margin-top' : -$('.login-bg').outerHeight()/2
+    });
+}
+
+</script><?php /**PATH C:\inetpub\wwwroot\demo\resources\views/auth/auth_password_reset.blade.php ENDPATH**/ ?>

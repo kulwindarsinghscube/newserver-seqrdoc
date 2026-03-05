@@ -1,0 +1,184 @@
+.ui-tooltip {max-width: 70% !important; width: 70% !important;}
+.table td, .table th {padding: .35rem !important;}
+#example_length select.focus, #example_length select:focus {outline: 0; box-shadow: none!important;}
+#example_filter input.focus, #example_filter input:focus {outline: 0; box-shadow: none!important;}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #5ca8dc; 
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 5px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: black;
+}
+
+.sidenav .loginname {
+position:absolute;top:0;margin-left:0;font-size:13px;width:85%;border-radius:0;padding:2px;background-color:#684791;color:white;   
+}
+.sidenav .hlink {
+border-bottom: 1px solid darkturquoise;    
+}
+.sidenav .logout {
+padding:5px;width:40%;margin-left:70px;margin-top:10px;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: -21px;
+  right: 2px;
+  font-size: 30px;
+  margin-left: 50px;
+  width: 13%;
+  height: 7%;
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+
+.my-circle {
+  content: attr(data-letters);
+  display: inline-block;
+  font-size: 1.1em;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  border-radius: 50%;
+  background: #684791;
+  vertical-align: middle;
+  margin-right: 1em;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.tbl_repeat {
+	width:100%;
+}
+.tbl_repeat th,.tbl_repeat td {
+	padding:5px 10px;
+}
+.tbl_repeat th {
+	background:#eee;
+	border-top: solid 1px #aaa;
+	border-bottom: solid 1px #aaa;
+}
+.tbl_repeat td {
+	border-bottom: dashed 1px #aaa;
+}
+.tw-control, #myCheck {
+    width: 20px;
+    height: 18px;
+}
+.alert-box {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.card-counter{
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+}
+
+.card-counter:hover{
+box-shadow: 4px 4px 20px #DADADA;
+transition: .3s linear all;
+}
+
+.card-counter.primary{
+background-color: #007bff;
+color: #FFF;
+}
+
+.card-counter.danger{
+background-color: #ef5350;
+color: #FFF;
+}  
+
+.card-counter.success{
+background-color: #66bb6a;
+color: #FFF;
+}  
+
+.card-counter.info{
+background-color: #26c6da;
+color: #FFF;
+}  
+
+.card-counter i{
+font-size: 5em;
+opacity: 0.2;
+}
+
+.card-counter .count-numbers{
+position: absolute;
+right: 35px;
+top: 20px;
+font-size: 32px;
+display: block;
+}
+
+.card-counter .count-name{
+position: absolute;
+right: 35px;
+top: 65px;
+font-style: italic;
+text-transform: capitalize;
+opacity: 0.5;
+display: block;
+font-size: 18px;
+}
+#progress-file {
+    width: 100%;
+    border: 1px solid #aaa;
+    height: 20px;
+}
+#message-file {
+    color: green;
+}
+#progress-file .bar {
+    background-color: #684791;
+    color: white;
+    height: 18px;
+    font-size: 14px;
+    text-align: center;
+}  
+#progress-folder {
+    width: 612px;
+    border: 1px solid #aaa;
+    height: 20px;
+}
+#message-folder {
+    color: green;
+}
+#progress-folder .bar {
+    background-color: #684791;
+    color: white;
+    height: 18px;
+    font-size: 14px;
+    text-align: center;
+}  

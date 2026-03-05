@@ -1,0 +1,164 @@
+body {
+    padding-top: 50px;
+}
+
+.thumbnail {
+    border: 0;
+}
+
+#webcodecam-canvas, #scanned-img {
+    background-color: #fff;
+}
+
+#camera-select {
+    display: inline-block;
+    width: auto;
+}
+
+.btn {
+    margin-bottom: 2px;
+}
+
+.form-control {
+    height: 32px;
+}
+
+.h4, h4 {
+    width: auto;
+    float: left;
+    font-size: 20px;
+    line-height: 1.1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.controls {
+    float: right;
+    display: inline-block;
+}
+
+.well {
+    position: relative;
+    display: inline-block;
+}
+
+.panel-heading {
+    display: inline-block;
+    width: 100%;
+}
+
+.container {
+    width: 100%
+}
+
+pre {
+    border: 0;
+    border-radius: 0;
+    background-color: #333;
+    margin: 0;
+    line-height: 125%;
+    color: whitesmoke;
+}
+
+button {
+    outline: none !important;
+}
+
+.table-borde#0052CC {
+    color: #777;
+    cursor: default;
+}
+
+.table-borde#0052CC a:hover {
+    text-decoration: none;
+}
+
+.table-borde#0052CC th a {
+    float: right;
+    line-height: 3.49;
+}
+
+.table-borde#0052CC td a {
+    float: left;
+}
+
+.table-borde#0052CC th img {
+    float: left;
+}
+
+.table-borde#0052CC th, .table-borde#0052CC td {
+    vertical-align: middle !important;
+}
+
+.scanner-laser {
+    position: absolute;
+    margin: 40px;
+    height: 30px;
+    width: 30px;
+    opacity: 0.5;
+}
+
+.laser-leftTop {
+    top: 0;
+    left: 0;
+    border-top: solid #0052CC 5px;
+    border-left: solid #0052CC 5px;
+}
+
+.laser-leftBottom {
+    bottom: 0;
+    left: 0;
+    border-bottom: solid #0052CC 5px;
+    border-left: solid #0052CC 5px;
+}
+
+.laser-rightTop {
+    top: 0;
+    right: 0;
+    border-top: solid #0052CC 5px;
+    border-right: solid #0052CC 5px;
+}
+
+.laser-rightBottom {
+    bottom: 0;
+    right: 0;
+    border-bottom: solid #0052CC 5px;
+    border-right: solid #0052CC 5px;
+    JS
+}
+
+#webcodecam-canvas {
+    background-color: #fff;
+}
+#scanned-QR{
+    word-break: break-word;
+}
+
+.result img{
+	border:0;
+}
+
+.controls{
+	position: absolute;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    background: #0052CC;
+    padding: 10px;
+    width: 333px;
+    margin: 0 auto;
+	box-shadow:0px -1px 5px #777;
+}
+
+.cam-selecter{
+	position: absolute;
+    top: 79px;
+    right: 0;
+    left: 0;
+    background: #0052CC;
+    padding: 10px;
+    width: 333px;
+    margin: 0 auto;
+	box-shadow:0px 1px 5px #777;
+	z-index:9999;
+}

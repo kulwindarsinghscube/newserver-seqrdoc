@@ -1,0 +1,6 @@
+/config/constant.php
+/config/constant_new.php
+/vendor
+.env
+/public/backend/canvas/ghost_images
+/public/backend/canvas/yellowpatchimages

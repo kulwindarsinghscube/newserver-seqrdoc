@@ -1,0 +1,31 @@
+
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php on line 54
+
+Call Stack:
+    0.0046     742624   1. {main}() C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:0
+    0.0054     753872   2. CodeFormatter->formatCode($source = '<?php\r\n\r\nnamespace App\\Http\\Middleware;\r\n\r\nuse Closure;\r\n\r\nclass Cors\r\n{\r\n    /**\r\n     * Handle an incoming request.\r\n     *\r\n     * @param  \\Illuminate\\Http\\Request  $request\r\n     * @param  \\Closure  $next\r\n     * @return mixed\r\n     */\r\n    \r\n    public function handle($request, Closure $next)\r\n    {\r\n        return $next($request)->header(\'Access-Control-Allow-Origin\', \'*\')\r\n            ->header(\'Access-Control-Allow-Methods\',\'GET\', \'POST\', \'PUT\', \'PATCH\', \'DELETE\', \'OPTIONS\');\r\n    }\r\n\r\n}') C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:1736
+    0.0055     754512   3. AddMissingCurlyBraces->format($source = '<?php\r\n\r\nnamespace App\\Http\\Middleware;\r\n\r\nuse Closure;\r\n\r\nclass Cors\r\n{\r\n    /**\r\n     * Handle an incoming request.\r\n     *\r\n     * @param  \\Illuminate\\Http\\Request  $request\r\n     * @param  \\Closure  $next\r\n     * @return mixed\r\n     */\r\n    \r\n    public function handle($request, Closure $next)\r\n    {\r\n        return $next($request)->header(\'Access-Control-Allow-Origin\', \'*\')\r\n            ->header(\'Access-Control-Allow-Methods\',\'GET\', \'POST\', \'PUT\', \'PATCH\', \'DELETE\', \'OPTIONS\');\r\n    }\r\n\r\n}') C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:326
+    0.0055     754512   4. AddMissingCurlyBraces->addBraces($source = '<?php\r\n\r\nnamespace App\\Http\\Middleware;\r\n\r\nuse Closure;\r\n\r\nclass Cors\r\n{\r\n    /**\r\n     * Handle an incoming request.\r\n     *\r\n     * @param  \\Illuminate\\Http\\Request  $request\r\n     * @param  \\Closure  $next\r\n     * @return mixed\r\n     */\r\n    \r\n    public function handle($request, Closure $next)\r\n    {\r\n        return $next($request)->header(\'Access-Control-Allow-Origin\', \'*\')\r\n            ->header(\'Access-Control-Allow-Methods\',\'GET\', \'POST\', \'PUT\', \'PATCH\', \'DELETE\', \'OPTIONS\');\r\n    }\r\n\r\n}') C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:41
+    0.0055     786640   5. each($arr = [0 => [0 => 382, 1 => '<?php\r\n', 2 => 1], 1 => [0 => 385, 1 => '\r\n', 2 => 2], 2 => [0 => 391, 1 => 'namespace', 2 => 3], 3 => [0 => 385, 1 => ' ', 2 => 3], 4 => [0 => 311, 1 => 'App', 2 => 3], 5 => [0 => 393, 1 => '\\', 2 => 3], 6 => [0 => 311, 1 => 'Http', 2 => 3], 7 => [0 => 393, 1 => '\\', 2 => 3], 8 => [0 => 311, 1 => 'Middleware', 2 => 3], 9 => ';', 10 => [0 => 385, 1 => '\r\n\r\n', 2 => 3], 11 => [0 => 350, 1 => 'use', 2 => 5], 12 => [0 => 385, 1 => ' ', 2 => 5], 13 => [0 => 311, 1 => 'Closure', 2 => 5], 14 => ';', 15 => [0 => 385, 1 => '\r\n\r\n', 2 => 5], 16 => [0 => 364, 1 => 'class', 2 => 7], 17 => [0 => 385, 1 => ' ', 2 => 7], 18 => [0 => 311, 1 => 'Cors', 2 => 7], 19 => [0 => 385, 1 => '\r\n', 2 => 7], 20 => '{', 21 => [0 => 385, 1 => '\r\n    ', 2 => 8], 22 => [0 => 381, 1 => '/**\r\n     * Handle an incoming request.\r\n     *\r\n     * @param  \\Illuminate\\Http\\Request  $request\r\n     * @param  \\Closure  $next\r\n     * @return mixed\r\n     */', 2 => 9], 23 => [0 => 385, 1 => '\r\n    \r\n    ', 2 => 15], 24 => [0 => 358, 1 => 'public', 2 => 17], 25 => [0 => 385, 1 => ' ', 2 => 17], 26 => [0 => 342, 1 => 'function', 2 => 17], 27 => [0 => 385, 1 => ' ', 2 => 17], 28 => [0 => 311, 1 => 'handle', 2 => 17], 29 => '(', 30 => [0 => 312, 1 => '$request', 2 => 17], 31 => ',', 32 => [0 => 385, 1 => ' ', 2 => 17], 33 => [0 => 311, 1 => 'Closure', 2 => 17], 34 => [0 => 385, 1 => ' ', 2 => 17], 35 => [0 => 312, 1 => '$next', 2 => 17], 36 => ')', 37 => [0 => 385, 1 => '\r\n    ', 2 => 17], 38 => '{', 39 => [0 => 385, 1 => '\r\n        ', 2 => 18], 40 => [0 => 345, 1 => 'return', 2 => 19], 41 => [0 => 385, 1 => ' ', 2 => 19], 42 => [0 => 312, 1 => '$next', 2 => 19], 43 => '(', 44 => [0 => 312, 1 => '$request', 2 => 19], 45 => ')', 46 => [0 => 369, 1 => '->', 2 => 19], 47 => [0 => 311, 1 => 'header', 2 => 19], 48 => '(', 49 => [0 => 315, 1 => '\'Access-Control-Allow-Origin\'', 2 => 19], 50 => ',', 51 => [0 => 385, 1 => ' ', 2 => 19], 52 => [0 => 315, 1 => '\'*\'', 2 => 19], 53 => ')', 54 => [0 => 385, 1 => '\r\n            ', 2 => 19], 55 => [0 => 369, 1 => '->', 2 => 20], 56 => [0 => 311, 1 => 'header', 2 => 20], 57 => '(', 58 => [0 => 315, 1 => '\'Access-Control-Allow-Methods\'', 2 => 20], 59 => ',', 60 => [0 => 315, 1 => '\'GET\'', 2 => 20], 61 => ',', 62 => [0 => 385, 1 => ' ', 2 => 20], 63 => [0 => 315, 1 => '\'POST\'', 2 => 20], 64 => ',', 65 => [0 => 385, 1 => ' ', 2 => 20], 66 => [0 => 315, 1 => '\'PUT\'', 2 => 20], 67 => ',', 68 => [0 => 385, 1 => ' ', 2 => 20], 69 => [0 => 315, 1 => '\'PATCH\'', 2 => 20], 70 => ',', 71 => [0 => 385, 1 => ' ', 2 => 20], 72 => [0 => 315, 1 => '\'DELETE\'', 2 => 20], 73 => ',', 74 => [0 => 385, 1 => ' ', 2 => 20], 75 => [0 => 315, 1 => '\'OPTIONS\'', 2 => 20], 76 => ')', 77 => ';', 78 => [0 => 385, 1 => '\r\n    ', 2 => 20], 79 => '}', 80 => [0 => 385, 1 => '\r\n\r\n', 2 => 21], 81 => '}']) C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:54
+
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class Cors {
+	/**
+	 * Handle an incoming request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Closure  $next
+	 * @return mixed
+	 */
+
+	public function handle($request, Closure $next) {
+		return $next($request)->header('Access-Control-Allow-Origin', '*')
+		                      ->header('Access-Control-Allow-Methods', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS');
+	}
+
+}

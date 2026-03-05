@@ -1,0 +1,455 @@
+@extends('admin.layout.layout')
+@section('content')
+	<div class="container" style="width: 1350px !important;">
+		<div class="col-xs-12">
+			<div class="clearfix">
+				<div id="">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12">
+								<h1 class="page-header"><i class="fa fa-fw fa-file"></i> Supplier Profile</h1>	
+							</div>
+						</div>						
+						<div class="modal fade" id="addUsr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel"></h4>
+									</div>
+									<div class="modal-body">									
+										
+									</div>
+								</div>
+							</div>
+						</div>
+<!--Edit Form-->
+						<div class="col-xs-12" id="div_edit" style="display:none;">                
+                            <div class="card">                                
+                                <div class="card-body" style="padding:20px;">
+                                
+                                <div class="row">
+                                    <form method="post" id="editForm" class="form-horizontal" novalidate="novalidate">
+                                    <input type="hidden" value="<?= csrf_token()?>" name="_token">                                    
+                                    <div class="col-xs-12">  
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+												<div class="col-sm-4">
+													<label class="control-label">Business Name</label>
+													<input type="text" class="form-control" id="company_name_e" name="company_name_e">
+													<input type="hidden" class="form-control" id="company_name_chk" name="company_name_chk">
+													<input type="hidden" class="form-control" id="supplier_id" name="supplier_id">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label">Registration Number</label>
+													<input type="text" class="form-control" id="registration_no_e" name="registration_no_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label">PIN Number</label>
+													<input type="text" class="form-control" id="pin_no_e" name="pin_no_e">
+												</div>
+                                            </div>											
+											<div class="col-xs-12">
+												<div class="col-sm-4">
+													<label class="control-label">VAT Number</label>
+													<input type="text" class="form-control" id="vat_no_e" name="vat_no_e">													
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">PO Box</label>									
+													<input type="text" class="form-control" id="po_box_e" name="po_box_e">				
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Code</label>
+													<input type="text" class="form-control" id="code_e" name="code_e">
+												</div>
+											</div>
+											<div class="col-xs-12">
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Town</label>
+													<input type="text" class="form-control" id="town_e" name="town_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Telephone 1</label>
+													<input type="text" class="form-control" id="tel_no_e" name="tel_no_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Telephone 2</label>
+													<input type="text" class="form-control" id="tel_no_two_e" name="tel_no_two_e">
+												</div>
+                                            </div>
+											<div class="col-xs-12">
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Email</label>
+													<input type="text" class="form-control" id="email_e" name="email_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Logo</label>
+													<input type="file" name="company_logo_e" class="form-control" id="exampleInputFile" />
+													<input type="hidden" class="form-control" id="company_logo_e_chk" name="company_logo_e_chk">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Initials</label>
+													<input type="text" class="form-control" id="initials_e" name="initials_e">
+												</div>
+                                            </div>
+											<div class="col-xs-12">
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Username</label>
+													<input type="text" class="form-control" id="username_e" name="username_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Password</label>
+													<input type="password" class="form-control" id="password_e" name="password_e">
+												</div>
+												<div class="col-sm-4">
+													<label class="control-label" for="temp">Confirm Password</label>
+													<input type="password" class="form-control" id="cpassword_e" name="cpassword_e">
+												</div>
+                                            </div> 
+											
+                                        </div>         
+                                    </div>
+                                    <div class="col-xs-12"><p></p></div>
+                                    <div class="col-xs-12 text-center"> 
+                                    <button type="submit" class="btn btn-primary" id="btn_import_e">Edit</button> 
+                                    </div>
+                                    </form>
+                                    
+                                    <div class="col-xs-12"><div id="progress_e" style="border:1px solid gray; border-radius: 4px; display:none;"></div></div>
+                                    <div class="col-xs-12"><div id="show_msg_e"></div></div>
+                                    <div class="col-xs-12"><div id="show_records_e"></div></div>
+                                    <div class="col-xs-12"><p><div id="show_msg2_e" class="text-center"></p></div></div>
+                                </div>                                
+                                </div>                                
+                            </div> 
+                        </div>
+										
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="modal fade" id="viewInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">			
+        <div class="modal-content" style="width: 1200px;left: -440px;">
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="z-index:99999;opacity: 1;position: absolute;right: 0px;top: -4px;">X</button>-->
+            
+            <div class="modal-body" id="ajaxContent"></div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>             
+        </div>
+    </div>
+</div>    
+@stop
+@section('script')
+<script src="{{asset('backend/js/moment.min.js')}}"></script>
+
+<script type="text/javascript">
+
+	$('.installation_date').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});	
+	$('.expiry_date').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});	
+	
+	$token = '<?= csrf_token()?>';
+
+	//$.validator.setDefaults({ ignore: [] }); $('select').change(function(){ $('select').valid(); }) 
+    $('.select2').change(function(){
+        $(this).valid()
+    });   
+
+	
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+		var id=<?= $supplier_id?>;	
+		$("input#username_e").attr('disabled','disabled');
+		$("#show_msg2_e").html("Please wait...");
+		$('#company_name_e').val('');
+		$('#company_name_chk').val('');
+		$('#supplier_id').val('');
+		$('#registration_no_e').val('');
+		$('#pin_no_e').val('');
+		$('#vat_no_e').val('');
+		$('#po_box_e').val('');
+		$('#code_e').val('');
+		$('#town_e').val('');
+		$('#tel_no_e').val('');
+		$('#tel_no_two_e').val('');
+		$('#email_e').val('');
+		$('#initials_e').val('');
+		$('#company_logo_e_chk').val('');
+		$('#username_e').val('');		
+		$('#password_e').val('');		
+		$('#cpassword_e').val('');		
+        //if (confirm("Do you want to edit a record?")) {
+			$.ajax( {
+				url: "<?=route('sgrsa-supplier.EditRecord')?>",
+				type: "GET",
+				data: {
+					'id':id
+				},
+				//dataType: 'json',
+				success: function (resObj) {
+					if(resObj.success == true){
+						$("#div_add").hide();
+						$("#div_edit").show();
+						$('#company_name_e').val(resObj.res.company_name);
+						$('#company_name_chk').val(resObj.res.company_name);
+						$('#supplier_id').val(resObj.supplier_id);
+						$('#registration_no_e').val(resObj.res.registration_no);
+						$('#pin_no_e').val(resObj.res.pin_no);
+						$('#vat_no_e').val(resObj.res.vat_no);
+						$('#po_box_e').val(resObj.res.po_box);
+						$('#code_e').val(resObj.res.code);
+						$('#town_e').val(resObj.res.town);
+						$('#tel_no_e').val(resObj.res.tel_no);
+						$('#tel_no_e_two').val(resObj.res.tel_no_two);
+						$('#email_e').val(resObj.res.email);
+						$('#initials_e').val(resObj.res.initials);
+						$('#company_logo_e_chk').val(resObj.res.company_logo);
+						$('#username_e').val(resObj.username);
+						$("#show_msg2_e").html("");
+					}
+				}
+			} );
+		//}		
+	
+	
+    
+	$('#editForm').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: false,
+		invalidHandler: function (event, validator) { //display error alert on form submit
+			$('.alert-error', $('#editForm')).show();
+		},
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+		errorPlacement: function (error, element) {
+			if (element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if (controls.find(':checkbox,:radio').length > 1)
+					controls.append(error);
+				else
+					error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+			}
+			else if (element.is('.select2')) { 
+				error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+			}
+			else if (element.is('.chzn-select')) {
+				error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+			}
+			else
+				error.insertAfter(element);
+		},        
+        rules:{            
+            company_name_e: { required: true },
+            registration_no_e:{required: true},    
+            pin_no_e:{required: true},    
+            vat_no_e:{required: true},    
+            po_box_e:{required: true},    
+            code_e:{required: true},    
+            town_e:{required: true},    
+            tel_no_e:{required: true},    
+            email_e:{required: true},    
+            initials_e:{required: true},    
+            username_e:{required: true, minlength : 5},    
+            password_e:{minlength : 6},    
+            cpassword_e:{
+				required: function(element){
+				return $("#password_e").val()!="";
+				},
+				minlength : 6, equalTo : "#password_e"
+			},    
+        },
+        messages:{            
+            company_name_e:{required:'Enter Business Name'},
+            registration_no_e:{required:'Enter Registration Number'},
+            pin_no_e:{required:'Enter PIN Number'},
+            vat_no_e:{required:'Enter VAT Number'},
+            po_box_e:{required:'Enter PO Box'},
+            code_e:{required:'Enter Code'},
+            town_e:{required:'Enter Town'},
+            tel_no_e:{required:'Enter Telephone'},
+            email_e:{required:'Enter Email'},
+            initials_e:{required:'Enter Initials'},
+			username_e:{required: 'Enter Username', minlength:'Enter minimum 5 charactrs'},    
+            password_e:{required: 'Enter Password', minlength:'Enter minimum 6 charactrs'},    
+            cpassword_e:{required: 'Enter Confirm Password', minlength:'Enter minimum 6 charactrs', equalTo:"Doesn't match with Password"},  
+        },
+        submitHandler: function(form){            
+            $('#show_msg').hide();
+            $('#show_msg2').hide();
+            var token = "<?= csrf_token()?>"; 
+            $('#editForm').ajaxSubmit({
+                url:'<?= route('sgrsa-supplier.editData')?>',
+                type: "POST",
+				enctype: 'multipart/form-data',
+                dataType: "JSON",
+                data:$("#editForm").serializeArray(),
+                //processData: false,
+                //contentType:false,                
+                beforeSubmit:function(formData,jqform, options){
+                    $('#show_msg_e').show();
+					$('#show_msg2_e').show();
+					$("#show_msg2_e").html("Please wait...");
+                    $('#btn_import_e').hide();
+                },clearForm:false,dataType:'json',success:function(resObj){
+                    if(resObj.success == true){
+                        $('#show_msg2_e').show();
+                        $("#show_msg2_e").html(resObj.message);
+                        $('#btn_import_e').show()
+                        //document.getElementById("editForm").reset();
+						$("#editForm")[0].reset();
+						$("select.select2").select2('data', {}); // clear out values selected
+						$("select.select2").select2({ allowClear: true }); // re-init to show default status
+						window.location.reload();
+                    }else{
+                        $('#btn_import_e').show();
+                        $('#show_msg2_e').show();
+                        $("#show_msg2_e").html(resObj.message);
+						//alert(resObj.message);
+                        //window.location.reload();
+                    }
+                }
+
+            });
+        }
+    }) 	
+	
+  
+</script>
+@stop
+@section('style')
+<style type="text/css">
+#example th{
+border: 1px solid #dee3ed;
+}
+#example_length label{
+  display:none;
+}
+.help-inline{
+  color:red;
+  font-weight:normal;
+}
+
+.breadcrumb{
+  background:#fff;
+}
+
+.breadcrumb a{
+  color:#666;
+}
+
+.breadcrumb a:hover{
+  text-decoration:none;
+  color:#222;
+}
+
+.loader{
+  display: table;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.loader-content{
+  display:table-cell;
+  vertical-align: middle;
+  color:#fff;
+}
+.success2{
+  border-left:3px solid #5CB85C;
+}
+.danger2{
+  border-left:3px solid #D9534F;
+}
+
+#example td{
+  word-break: break-all;
+  padding:10px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus{
+  background:#0052CC;
+  color:#fff;
+  border:1px solid #0052CC;
+}
+
+.nav-pills>li.active>a:hover, .nav-pills>li>a:focus, .nav-pills>li>a:hover
+{
+  background:#fff;
+  background:#ddd;
+  border-radius:0;
+  padding:10px 20px;
+  color:#333;
+  border-radius:2px;
+  border:1px solid #ddd;
+}
+
+.nav-pills>li>a, .nav-pills>li>a
+{
+  background:#fff;
+  color:#aaa;
+  border-radius:0;
+  padding:10px 20px;
+  border-radius:2px;
+  margin-bottom:20px;
+  border:1px solid #ddd;
+}
+
+#example_length label{
+  display:none;
+}
+
+.active .success{
+  background:#5CB85C !important;
+  border:1px solid #5CB85C !important;
+  color:#fff !important;
+}
+
+.active .failed{
+  background:#D9534F !important;
+  border:1px solid #D9534F !important;
+  color:#fff !important;
+}
+#progress .bar {
+    background-color: #0052CC;
+    color: white;
+    height: 18px;
+    font-size: 14px;
+    text-align: center;
+} 
+.ibar, .cbar {
+    background-color: #0052CC;
+    color: white;
+    height: 18px;
+    font-size: 14px;
+    text-align: center;
+} 
+blockquote {
+    padding: 2px 10px;
+    margin: 0 0 6px;
+    font-size: 14px;
+    border-left: 5px solid #0052CC;
+    background-color: #e8eff9;
+}
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+</style>
+@stop

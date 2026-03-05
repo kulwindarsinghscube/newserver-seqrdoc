@@ -1,0 +1,856 @@
+<?php
+
+namespace App\Utility;
+use Illuminate\Support\Str;
+use App\models\SessionManager;
+use App\models\BlockChainApiTracker;
+use App\models\User; 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+use GuzzleHttp\Psr7;
+
+class BlockChainV1
+{
+	
+	
+	private static function insertTracker($requestUrl, $requestMethod, $requestParameters,$response,$status,$responseTime,$apiName) 
+	{
+		
+
+		//fetching headers
+		// $headers = apache_request_headers();
+		$headers = apache_request_headers();
+		
+		$headerParameters = array();
+		if (isset($headers['apikey'])) {
+			$headerParameters['apikey'] = $headers['apikey'];
+		}else if(isset($headers['Apikey'])){
+
+			$headerParameters['apikey'] = $headers['Apikey'];
+
+		}
+		if (isset($headers['accesstoken'])) {
+			$headerParameters['accesstoken'] = $headers['accesstoken'];
+		}
+		if (isset($headers['Accesstoken'])) {
+			$headerParameters['accesstoken'] = $headers['Accesstoken'];
+		}
+		if (isset($headers['Content-Type'])) {
+			$headerParameters['Content-Type'] = $headers['Content-Type'];
+		}
+
+		
+
+		$client_ip = $_SERVER['REMOTE_ADDR'];
+		$headerParameters = json_encode($headerParameters);
+		$requestParameters = json_encode($requestParameters);
+
+		if(is_array($response)){
+
+		$response = json_encode($response);
+		}else{
+		$response=$response;	
+		}
+		$dateTime = date('Y-m-d H:i:s');
+
+
+
+		$result = new BlockChainApiTracker;
+		$result->client_ip = $client_ip;
+		$result->request_url = $requestUrl;
+		$result->request_method = $requestMethod;
+		$result->status = $status;
+		$result->header_parameters = $headerParameters;
+		$result->request_parameters = $requestParameters;
+		$result->response = $response;
+		$result->created_at = $dateTime;
+		$result->client_ip = $client_ip;
+		$result->api_name = $apiName;
+		$result->response_time = $responseTime;
+
+		$result->save();
+
+		return $result->id;
+
+		
+	}
+
+
+
+	/************************** Create Wallet For Site*********************************************/
+	public static function createWallet() {
+
+		$url = 'http://node.seqrdoc.com:9090/mainnet/create_wallet';
+		$apiKey = '123456789';
+
+		$ch = curl_init($url);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, [
+		    'Accept: application/json',
+		    'x-api-key: ' . $apiKey
+		]);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, ''); // Empty body
+
+		$response = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		if (curl_errno($ch)) {
+		    $respArr['status'] = 400;
+            $status = 'failed';
+            $respArr['message'] = "Something went wrong.";
+		} else {
+		    if ($httpCode == 200) { // 200 OK
+            	$response = json_decode($response, true);
+
+                if ($response['status'] == 200) {
+                    $walletAddress = $response['address'] ?? '';
+                    $privateKey = $response['privateKey'] ?? '';
+
+                    $respArr['status'] = 200;
+                    $respArr['message'] = "Wallet ID generated successfully.";
+                    $respArr['walletAddress'] = $walletAddress;
+                    $respArr['privateKey'] = $privateKey;
+                    $status = 'success';
+	            } else {
+	                $respArr['status'] = 400;
+	                $status = 'failed';
+	                $respArr['message'] = "Something went wrong.";
+	            }
+	        } else {
+	            $respArr['status'] = 400;
+	            $status = 'failed';
+	            $respArr['message'] = "Something went wrong.";
+	        }
+	    }
+
+		curl_close($ch);
+			
+		
+
+	    $responseTime = microtime(true) - LARAVEL_START;
+	    $api_tracker_id = Self::insertTracker($requestUrl, $requestMethod, $requestParameters, $response, $status, $responseTime, "createWalletV1");
+
+	    return $respArr;
+	}
+	
+
+	/************************** Deploy Contract Accoring To Template Name*********************************************/
+	public static function deployContract($mode='0', $contractName) 
+	{	
+		$response=[];
+		$responseArr = [];
+    
+	   
+	    if ($mode == 0) {
+	        // Testnet URL
+	        $requestUrl = 'http://node.seqrdoc.com:9090/testnet/deploy_contract';
+	    } else {
+	        // Live URL (Assuming it's the same URL)
+	        $requestUrl = 'http://node.seqrdoc.com:9090/mainnet/deploy_contract';
+	    }
+
+	    $headers = [
+	        'accept: application/json',
+	        'x-api-key: 123456789',
+	        'Content-Type: application/json'
+	    ];
+
+	    $postData = json_encode([
+	        "contract_name"   => $contractName,
+	        "contract_symbol" => "scube"
+	    ]);
+
+	    $ch = curl_init();
+	    
+	    curl_setopt($ch, CURLOPT_URL, $requestUrl);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+	    $response = curl_exec($ch);
+	    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	    
+	    if (curl_errno($ch)) {
+	        $responseArr['status'] = 400;
+	        $responseArr['message'] = curl_error($ch);
+	        $status  ='failed';
+	    } else {
+	        $response_data = json_decode($response, true);
+		
+	        if ($httpCode == 200 && isset($response_data['status']) && $response_data['status'] == 200) {
+	            $responseArr['status'] = 200;
+	            $responseArr['message'] = "Contract successfully deployed.";
+	            $responseArr['contractAddress'] = $response_data['contractAddress'] ?? null;
+	            $status  ='success';
+	        } else {
+	            $responseArr['status'] = $response_data['success'] ?? 403;
+	            $status  ='failed';
+	            $responseArr['message'] = $response_data['message'] ?? "Something went wrong.";
+	        }
+	    }
+
+        if(empty($response)){
+        	$response=$response_data;
+
+        }
+
+        $responseTime = microtime(true) - LARAVEL_START;
+        $api_tracker_id = Self::insertTracker($requestUrl,'POST',$postData,$response,$status,$responseTime,"deployContract");
+         
+       
+		return $responseArr;
+
+	}
+
+
+
+	
+	/************************** MINT Data*********************************************/
+	public static function mintData_old($mode='0',$data) 
+	{	
+
+		ini_set('upload_max_filesize', '1024M');
+        ini_set('post_max_size', '1024M');
+        ini_set('max_execution_time', '900');
+        ini_set('max_input_time', '900');
+        ini_set('memory_limit', -1);
+        error_reporting(E_ALL ^ E_NOTICE);
+
+		$responseArr = [];
+		$requestParameters = [];
+
+		try {
+		    $filePath = $data['pdf_file'];
+		    $fileName = pathinfo($filePath, PATHINFO_FILENAME);
+
+		    $requestUrl = $mode == 0 
+		        ? 'http://node.seqrdoc.com:9090/testnet/mint' 
+		        : 'http://node.seqrdoc.com:9090/mainnet/mint';
+
+		    $apiKey = '123456789';
+		    $requestMethod = 'POST';
+
+		    $requestParameters = [
+		        'walletID' => $data['walletID'],
+		        'smartContractAddress' => $data['smartContractAddress'],
+		        'documentType' => $data['documentType'],
+		        'description' => $data['description'],
+		        'uniqueHash' => $data['uniqueHash'],
+		    ];
+
+		    // Process metadata fields
+		    for ($i = 1; $i <= 5; $i++) {
+		        $requestParameters["metadata$i"] = isset($data["metadata$i"])
+		            ? json_encode(array_map('strval', $data["metadata$i"]), JSON_FORCE_OBJECT)
+		            : json_encode(["label" => "", "value" => ""]);
+		    }
+
+		    // $requestParameters['filePath'] = curl_file_create($filePath);
+		    $requestParameters['filePath'] = $filePath;
+
+		    $headers = [
+		        'accept: application/json',
+		        'x-api-key: ' . $apiKey,
+		        'Content-Type: application/x-www-form-urlencoded'
+		    ];
+
+		    $ch = curl_init($requestUrl);
+		    curl_setopt_array($ch, [
+		        CURLOPT_POST => true,
+		        CURLOPT_POSTFIELDS => http_build_query($requestParameters),
+		        CURLOPT_RETURNTRANSFER => true,
+		        CURLOPT_HTTPHEADER => $headers
+		    ]);
+
+		    $response = curl_exec($ch);
+		    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		    curl_close($ch);
+
+		    // print_r($response);
+		    // die();
+
+		    $responseArr = ['status' => 400, 'message' => "Something went wrong."];
+
+		    if ($httpCode === 200) {
+		        $response = json_decode($response, true);
+
+		        if (isset($response['success']) && $response['success'] == 200) {
+		            $responseArr = [
+		                'status' => 200,
+		                'message' => "Data minted successfully.",
+		                'txnHash' => $response['txnHash'] ?? '',
+		                'gasPrice' => $response['gasPrice'] ?? '',
+		                'tokenID' => $response['tokenID'] ?? '',
+		                'ipfsHash' => $response['ipfsHash'] ?? '',
+		                'pinataIpfsHash' => $response['pinataIpfsHash'] ?? ''
+		            ];
+		        } else {
+		            $responseArr['status'] = $response['success'] ?? 400;
+		            $responseArr['message'] = $response['message'] ?? "Something went wrong.";
+		        }
+		    }
+
+		} catch (Exception $e) {
+		    $responseArr = ['status' => 400, 'message' => $e->getMessage()];
+		}
+
+		$status = $responseArr['status'] == 200 ? 'success' : 'failed';
+
+		$responseTime = microtime(true) - LARAVEL_START;
+		$api_tracker_id = Self::insertTracker($requestUrl, $requestMethod, $requestParameters, $response, $status, $responseTime, "mintData");
+
+		return $responseArr;
+
+
+	}
+
+
+	public static function mintData($mode='0',$data) 
+	{	
+
+		$domain = \Request::getHost();
+        $subdomain = explode('.', $domain);
+		$start_time = microtime(true);
+
+		$responseArr=[];
+		$response=[];
+		$requestParameters=[];
+		$requestMethod = "POST";
+		// Final structured response
+		$respArr = [];
+		// if($subdomain[0]=='demo'||$subdomain[0]=='anu') {
+			$storageIdentifier = 'lighthouse';
+		// } else {
+		// 	$storageIdentifier = 'pinata';
+		// }
+		try {
+			$data['storageIdentifier']=$storageIdentifier;//added by sewakram
+			$filePath = $data['pdf_file'];
+			$fileName = pathinfo($filePath, PATHINFO_FILENAME);
+			// $filePath = str_replace("\\", '/', $filePath);
+			// $filePath = str_replace("\\", '/', $filePath);
+			// Select URL based on mode
+			$requestUrl = ($mode == 0)
+			    ? 'http://node.seqrdoc.com:9090/testnet/mint'
+			    : 'http://node.seqrdoc.com:9090/mainnet/mint';
+
+			// Prepare base parameters
+			$requestParameters = [
+			    'walletID' => $data['walletID'],
+			    'smartContractAddress' => $data['smartContractAddress'],
+			    'documentType' => $data['documentType'],
+			    'description' => $data['description'],
+			    'uniqueHash' => $data['uniqueHash'],
+			    // 'file' => new \CURLFile($filePath),
+				'storageIdentifier' => $data['storageIdentifier'],
+			    'file' => new \CURLFile($filePath),
+			];
+
+			// Add metadata1 to metadata5
+			for ($i = 1; $i <= 5; $i++) {
+			    $key = 'metadata' . $i;
+			    if (!empty($data[$key]) && is_array($data[$key])) {
+			        // Make sure 'label' and 'value' keys exist
+			        $metadata = [
+			            'label' => $data[$key]['label'] ?? '',
+			            'value' => $data[$key]['value'] ?? '',
+			        ];
+			        $requestParameters[$key] = json_encode($metadata);
+			    } else {
+			        $requestParameters[$key] = json_encode(['label' => '', 'value' => '']);
+			    }
+			}
+
+			// If you want raw arrays:
+			foreach ($requestParameters as $key => $value) {
+			    if (strpos($key, 'metadata') === 0) {
+			        $requestParameters[$key] = json_decode($value, true);
+			    }
+			}
+			
+
+			// $storageIdentifier = $data['storageIdentifier'] ?? 'pinata';
+			// $storageIdentifier = 'pinata';
+			$curl = curl_init();
+			
+			
+	        curl_setopt_array($curl, array(
+	          CURLOPT_URL => $requestUrl,
+	          CURLOPT_RETURNTRANSFER => true,
+	          CURLOPT_ENCODING => '',
+	          CURLOPT_MAXREDIRS => 10,
+	          CURLOPT_TIMEOUT => 0,
+	          CURLOPT_FOLLOWLOCATION => true,
+	          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	          CURLOPT_CUSTOMREQUEST => 'POST',
+	          CURLOPT_POSTFIELDS => array(
+				    'metadata1' => !empty($data['metadata1'])? json_encode($data['metadata1']):'',
+				    'metadata2' => !empty($data['metadata2'])? json_encode($data['metadata2']):'',
+				    'metadata3' => !empty($data['metadata3'])? json_encode($data['metadata3']):'',
+				    'metadata4' => !empty($data['metadata4'])? json_encode($data['metadata4']):'',
+				    'metadata5' => !empty($data['metadata5'])? json_encode($data['metadata5']):'',
+				    'walletID' => $data['walletID'],
+				    'documentType' => $data['documentType'] ? $data['documentType'] : 'Educational Document',
+				    'smartContractAddress' => $data['smartContractAddress'],
+				    'file' => new \CURLFile($filePath),
+				    'description' => $data['description'],
+					// 'storageIdentifier' => $storageIdentifier,
+					'storageIdentifier' => $data['storageIdentifier'],
+				    'uniqueHash' => $data['uniqueHash']
+				),
+	          CURLOPT_HTTPHEADER => array(
+	            'accept: application/json',
+	            'x-api-key: 123456789'
+	          ),
+	        ));
+
+	        $response = curl_exec($curl);
+
+	        // dd($response);
+			// Decode response
+			$responseData = json_decode($response, true);
+			
+			$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+			
+			if ($httpCode === 200 && isset($responseData['txnHash'])) {
+			    if ($responseData['status'] == 200) {
+			        $respArr = [
+			            'status' => 200,
+			            'message' => "Data mint successfully deployed.",
+			            'txnHash' => $responseData['txnHash'] ?? '',
+			            'gasPrice' => $responseData['gasPrice'] ?? '',
+			            'tokenID' => $responseData['tokenID'] ?? '',
+			            'ipfsHash' => $responseData['ipfsHash'] ?? '',
+			            'pinataIpfsHash' => $responseData['pinataIpfsHash'] ?? '',
+			            'doc_ipfs_hash' => $responseData['doc_ipfs_hash'] ?? '',
+			            'metadata_ipfs_hash' => $responseData['metadata_ipfs_hash'] ?? '',
+						
+			        ];
+			    } else {
+			        $respArr = [
+			            'status' => $responseData['success'],
+			            'message' => $responseData['message'] ?? 'Something went wrong.',
+			        ];
+			    }
+			} else {
+			    $respArr = [
+			        'status' => 400,
+			        'message' => 'Something went wrong.',
+			    ];
+			}
+
+
+			// print_r($response);
+
+		} catch (Exception $e) {
+
+			$respArr['message'] =$e->getMessage();
+			$respArr['status']=400;
+		}
+		
+		if ($respArr['status']==200) {
+            $status = 'success';
+        }
+        else
+        {
+            $status = 'failed';
+        }
+
+
+        // if(empty($response)){
+        // 	 $response=$res;
+        // 	//exit;
+        // }
+        $responseTime = microtime(true) - $start_time;
+        $api_tracker_id = Self::insertTracker($requestUrl,$requestMethod,$requestParameters,$response,$status,$responseTime,"mintDataV1");
+         
+
+		return $respArr;
+
+	}
+
+
+	public static function mintDataAnu($mode='0',$data) 
+	{	
+
+		
+
+		$responseArr=[];
+		$response=[];
+		$requestParameters=[];
+		// Final structured response
+		$respArr = [];
+		try {
+			
+			$filePath = $data['pdf_file'];
+			$fileName = pathinfo($filePath, PATHINFO_FILENAME);
+			$filePath = str_replace("\\", '/', $filePath);
+			// Select URL based on mode
+			$requestUrl = ($mode == 0)
+			    ? 'http://node.seqrdoc.com:9090/testnet/mint'
+			    : 'http://node.seqrdoc.com:9090/mainnet/mint';
+
+			// Prepare base parameters
+			$requestParameters = [
+			    'walletID' => $data['walletID'],
+			    'smartContractAddress' => $data['smartContractAddress'],
+			    'documentType' => $data['documentType'],
+			    'description' => $data['description'],
+			    'uniqueHash' => $data['uniqueHash'],
+			    'fileUrl' => $filePath,
+			];
+
+			// Add metadata1 to metadata5
+			for ($i = 1; $i <= 5; $i++) {
+			    $key = 'metadata' . $i;
+			    if (!empty($data[$key]) && is_array($data[$key])) {
+			        // Make sure 'label' and 'value' keys exist
+			        $metadata = [
+			            'label' => $data[$key]['label'] ?? '',
+			            'value' => $data[$key]['value'] ?? '',
+			        ];
+			        $requestParameters[$key] = json_encode($metadata);
+			    } else {
+			        $requestParameters[$key] = json_encode(['label' => '', 'value' => '']);
+			    }
+			}
+
+			// If you want raw arrays:
+			foreach ($requestParameters as $key => $value) {
+			    if (strpos($key, 'metadata') === 0) {
+			        $requestParameters[$key] = json_decode($value, true);
+			    }
+			}
+			// echo "<pre>";
+			// print_r($requestParameters);
+
+			// echo "<br>";
+			// $requestParameters = array(
+			// 	    'metadata1' => json_encode($data['metadata1']),
+			// 	    'metadata2' => json_encode($data['metadata2']),
+			// 	    'metadata3' => json_encode($data['metadata3']),
+			// 	    'metadata4' => json_encode($data['metadata4']),
+			// 	    'metadata5' => json_encode($data['metadata5']),
+			// 	    'walletID' => $data['walletID'],
+			// 	    'documentType' => 'Grade1 Certificate',
+			// 	    'smartContractAddress' => $data['smartContractAddress'],
+			// 	    'file' => new \CURLFile($filePath),
+			// 	    'description' => $data['description'],
+			// 	    'uniqueHash' => $data['uniqueHash']
+			// 	);
+			// print_r($requestParameters);
+
+			// echo "<br>";
+			// echo "<br>";
+			// die();
+
+			$curl = curl_init();
+			
+			
+	        curl_setopt_array($curl, array(
+	          CURLOPT_URL => $requestUrl,
+	          CURLOPT_RETURNTRANSFER => true,
+	          CURLOPT_ENCODING => '',
+	          CURLOPT_MAXREDIRS => 10,
+	          CURLOPT_TIMEOUT => 0,
+	          CURLOPT_FOLLOWLOCATION => true,
+	          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	          CURLOPT_CUSTOMREQUEST => 'POST',
+	          CURLOPT_POSTFIELDS => array(
+				    'metadata1' => json_encode($data['metadata1']),
+				    'metadata2' => json_encode($data['metadata2']),
+				    'metadata3' => json_encode($data['metadata3']),
+				    'metadata4' => json_encode($data['metadata4']),
+				    'metadata5' => json_encode($data['metadata5']),
+				    'walletID' => $data['walletID'],
+				    'documentType' => $data['documentType'] ? $data['documentType'] : 'Transcript',
+				    'smartContractAddress' => $data['smartContractAddress'],
+				    'fileUrl' => $filePath,
+				    'description' => $data['description'],
+				    'uniqueHash' => $data['uniqueHash']
+				),
+	          CURLOPT_HTTPHEADER => array(
+	            'accept: application/json',
+	            'x-api-key: 123456789'
+	          ),
+	        ));
+
+	        $response = curl_exec($curl);
+
+
+			// Decode response
+			$responseData = json_decode($response, true);
+			
+			$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+			
+			if ($httpCode === 200 && isset($responseData['txnHash'])) {
+			    if ($responseData['status'] == 200) {
+			        $respArr = [
+			            'status' => 200,
+			            'message' => "Data mint successfully deployed.",
+			            'txnHash' => $responseData['txnHash'] ?? '',
+			            'gasPrice' => $responseData['gasPrice'] ?? '',
+			            'tokenID' => $responseData['tokenID'] ?? '',
+			            'ipfsHash' => $responseData['ipfsHash'] ?? '',
+			            'pinataIpfsHash' => $responseData['pinataIpfsHash'] ?? '',
+			        ];
+			    } else {
+			        $respArr = [
+			            'status' => $responseData['success'],
+			            'message' => $responseData['message'] ?? 'Something went wrong.',
+			        ];
+			    }
+			} else {
+			    $respArr = [
+			        'status' => 400,
+			        'message' => 'Something went wrong.',
+			    ];
+			}
+			
+		} catch (Exception $e) {
+
+			$respArr['message'] =$e->getMessage();
+			$respArr['status']=400;
+		}
+		
+		if ($respArr['status']==200) {
+            $status = 'success';
+        }
+        else
+        {
+            $status = 'failed';
+        }
+
+
+        // if(empty($response)){
+        // 	 $response=$res;
+        // 	//exit;
+        // }
+        $requestMethod = 'POST';
+        $responseTime = microtime(true) - LARAVEL_START;
+        $api_tracker_id = Self::insertTracker($requestUrl,$requestMethod,$requestParameters,$response,$status,$responseTime,"mintDataV1");
+         
+
+		return $respArr;
+
+	}
+
+
+
+	public static function retreiveDetails($mode,$data) 
+	{	
+
+		/*print_r($data);
+		exit;*/
+		$responseArr=[];
+		$response=[];
+		try {
+			
+			if(isset($data['uniqueHash'])&&isset($data['walletID'])&&!empty($data['uniqueHash'])&&!empty($data['walletID'])){
+					
+					// if($mode==0){
+					// //Test URL
+					// $requestUrl='https://veraciousapis.herokuapp.com/v1/retreiveDetails?uniqueHash='.$data['uniqueHash'].'&walletID='.$data['walletID'];
+					// }else{
+					// //Live URL
+					// $requestUrl='https://mainnet-apis.herokuapp.com/v1/mainnet/retreiveDetails?uniqueHash='.$data['uniqueHash'].'&walletID='.$data['walletID'];
+					// }
+					
+					if($data['uniqueHash']=="9595D827F2962768650357A788C503F8" || $data['uniqueHash']=="4EFF66A9AAFB11E7E13D839086620C7A" || $data['uniqueHash']==="6EA7A2D10C14988DF88ADEE8E087175F"){
+						$data['contractAddress']="0xa218328795D0A74ffcbE3a66a6eC9fc9135E30b9";
+					}elseif($data['uniqueHash']=="4EFF66A9AAFB11E7E13D839086620C7A"){
+						$data['contractAddress']="";
+					}
+
+					$extra_params = '';
+					if(isset($data['contractAddress']) && !empty($data['contractAddress'])){
+						$extra_params = "&contractAddress=".$data['contractAddress'];
+						$functionName="retreiveDetailsByContract";
+					}else{
+						$functionName="retreiveDetails";
+					}
+					if($mode==0){
+					//Test URL
+					$requestUrl='https://veraciousapis.herokuapp.com/v1/'.$functionName.'?uniqueHash='.$data['uniqueHash'].'&walletID='.$data['walletID'].$extra_params;
+					}else{
+					//Live URL
+					$requestUrl='https://mainnet-apis.herokuapp.com/v1/mainnet/'.$functionName.'?uniqueHash='.$data['uniqueHash'].'&walletID='.$data['walletID'].$extra_params;
+					}
+
+					$requestMethod='GET';
+					$requestParameters['uniqueHash']=$data['uniqueHash'];
+					$requestParameters['walletID']=$data['walletID'];
+					//echo $requestUrl;
+					//print_r($requestParameters);
+					//exit;
+					/*$client = new Client();
+
+					$res = $client->request($requestMethod, $requestUrl, [
+					    'form_params' => $requestParameters
+					]);*/
+
+         
+			        $ch = curl_init();
+			        curl_setopt($ch, CURLOPT_URL, $requestUrl);
+			        curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+			        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			         
+			        $msg = curl_exec($ch);
+			        $info = curl_getinfo($ch);
+			      //  print_r($msg);
+			      //  print_r($info);
+			        
+			        $response = json_decode($msg,1);
+				//	print_r($response);
+				//	exit;
+					//if($info['http_code'] == 200){
+					    
+					   // $response_data = $res->getBody()->getContents();
+
+					    //$response=(array)json_decode($response_data);
+					    //print_r($response);
+
+					    if(isset($response['success'])){
+
+					    	if($response['success']==200){
+
+					    		//$contractAddress=$response['contractAddress'];
+
+					    		$respArr['status']=200;
+					    		$respArr['data']=$response;
+					    		$respArr['message']="Details fetched succesfully.";
+					    	
+					    	}else{
+					    		$respArr['status']=$response['success'];
+					    		if(isset($response['message'])){
+					    			$respArr['message']=$response['message'];
+					    		}else{
+					    			$respArr['message']="Something went wrong.";
+					    		}
+					    	}
+
+					    }else{
+					    	$respArr['status']=400;
+					    	$respArr['message']="Something went wrong.";
+					    }
+
+					/*}else{
+						$respArr['status']=400;
+					    $respArr['message']="Something went wrong.";
+					    
+					}*/	
+					curl_close($ch);
+				}else{
+					$respArr['status']=400;
+					$respArr['message']="Required fields not found.";
+				}	
+			
+		} catch (Exception $e) {
+
+			$respArr['message'] =$e->getMessage();
+			$respArr['status']=400;
+		}
+
+			
+		
+		if ($respArr['status']==200) {
+            $status = 'success';
+        }
+        else
+        {
+            $status = 'failed';
+        }
+
+        if(empty($response)){
+        	$response=$res;
+
+        }
+
+        $responseTime = microtime(true) - LARAVEL_START;
+        $api_tracker_id = Self::insertTracker($requestUrl,$requestMethod,$requestParameters,$response,$status,$responseTime,$functionName);
+         
+
+		return $respArr;
+
+	}
+
+	public static function pinataRetreiveDetails($data) 
+	{	
+
+		// print_r($data);
+		// exit;
+		error_reporting(E_ALL ^ E_NOTICE);
+
+		$responseArr = [];
+		$requestParameters = [];
+
+		try {
+		    
+		    $requestUrl = 'http://node.seqrdoc.com:9090/mainnet/retrieve';
+
+		    $apiKey = '123456789';
+		    $requestMethod = 'POST';
+
+		    $requestParameters = [
+		        'tokenID' => $data->token_id,
+		        'smartContractAddress' => $data->smart_contract_address,
+		    ];
+
+		    // dd($requestParameters);
+		    $headers = [
+		        'accept: application/json',
+		        'x-api-key: ' . $apiKey,
+		        'Content-Type: application/json'
+		    ];
+
+		    $ch = curl_init($requestUrl);
+		    curl_setopt_array($ch, [
+		        CURLOPT_POST => true,
+		        // CURLOPT_POSTFIELDS => http_build_query($requestParameters),
+		        CURLOPT_POSTFIELDS => json_encode($requestParameters),
+		        CURLOPT_RETURNTRANSFER => true,
+		        CURLOPT_HTTPHEADER => $headers
+		    ]);
+
+		    $response = curl_exec($ch);
+		    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		    curl_close($ch);
+
+		    // print_r($response);
+		    // die();
+		    $responseArr = ['status' => 400, 'message' => "Something went wrong."];
+
+		    if ($httpCode === 200) {
+		        $response = json_decode($response, true);
+
+		            // dd($response);
+		        if (isset($response['status']) && $response['status'] == 200) {
+		            $responseArr = $response;
+
+		        } else {
+		            $responseArr['status'] = $response['success'] ?? 400;
+		            $responseArr['message'] = $response['message'] ?? "Something went wrong.";
+		        }
+		    }
+
+		} catch (Exception $e) {
+			// dd('eee'.$e);
+		    $responseArr = ['status' => 400, 'message' => $e->getMessage()];
+		}
+
+		$status = $responseArr['status'] == 200 ? 'success' : 'failed';
+
+		$responseTime = microtime(true) - LARAVEL_START;
+		// $api_tracker_id = Self::insertTracker($requestUrl, $requestMethod, $requestParameters, $response, $status, $responseTime, "retrivePinataData");
+		// dd($responseArr);
+		return $responseArr;
+
+	}
+
+}

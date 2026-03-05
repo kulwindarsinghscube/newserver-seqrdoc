@@ -1,0 +1,616 @@
+[2024-01-23 11:48:21] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-01-23 11:48:21] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-03-06 13:14:52] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-03-06 13:14:52] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-03-06 13:15:05] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-03-06 13:15:05] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-03-06 13:16:40] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-03-06 13:16:40] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-03-06 13:21:33] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-03-06 13:21:33] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:36:20] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:36:20] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:37:04] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:37:04] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:40:36] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:40:36] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:43:55] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:43:55] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:46:51] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:46:51] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:47:36] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:47:36] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:48:10] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:48:10] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:49:19] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:49:19] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2024-09-11 17:52:09] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Support\\Collection\" not found at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php:109)
+[stacktrace]
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(240): collect()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(202): Illuminate\\Log\\LogManager->createStackDriver()
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(118): Illuminate\\Log\\LogManager->resolve()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(98): Illuminate\\Log\\LogManager->get()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(547): Illuminate\\Log\\LogManager->driver()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(122): Illuminate\\Log\\LogManager->error()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\app\\Exceptions\\Handler.php(38): Illuminate\\Foundation\\Exceptions\\Handler->report()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(92): App\\Exceptions\\Handler->report()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(134): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleException()
+#9 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#10 {main}
+"} 
+[2024-09-11 17:52:09] laravel.ERROR: During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php:1277
+Stack trace:
+#0 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(444): include('...')
+#2 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile()
+#3 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Support\helpers.php(109): Composer\Autoload\ClassLoader->loadClass()
+#4 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(89): collect()
+#5 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(219): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(320): Illuminate\Foundation\Application->bootstrapWith()
+#9 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(129): Illuminate\Foundation\Console\Kernel->bootstrap()
+#10 C:\inetpub\vhosts\seqrdoc.com\httpdocs\demo\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\\Support\\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:1277
+Stack trace:
+#0 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php(11): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(444): include('...')
+#2 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(109): Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(89): collect()
+#5 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\PackageManifest.php(78): Illuminate\\Foundation\\PackageManifest->config()
+#6 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#7 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#8 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith()
+#9 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#10 C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main} at C:\\inetpub\\vhosts\\seqrdoc.com\\httpdocs\\demo\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Collection.php:11)
+[stacktrace]
+#0 {main}
+"} 

@@ -1,0 +1,171 @@
+.container {
+	max-width: 100%; /*  Over All container size */
+	padding-left:0;
+	padding-right: 0; 
+}
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #EDEDED; /* #e8f5d8  |  #88c241 */
+    color: #324148;
+}
+table.dataTable thead td, table.dataTable thead th,
+table.dataTable tfoot td, table.dataTable tfoot th
+{
+	background-color: #FAFAFA/*#d1e6b7 light green */;
+
+}
+
+#dd{
+	font-size: .875rem;
+	padding: .25rem .5rem;
+}
+
+.back_clr{
+	background-color: white;
+}
+.sync_type_date{
+	padding-top: 8px;
+}
+.text-align-right{
+	text-align: right;
+}
+.hk-wrapper .hk-navbar.navbar-light{
+	background-color: #F4F6F8; /* Background for Top NAV  */
+}
+.hk-wrapper .hk-navbar{
+	box-shadow: none; /* Remove Shadow from Top NAV */
+	border-bottom: 1px solid #FFFFFF;
+}
+.hk-wrapper.hk-vertical-nav .hk-nav{
+	box-shadow: none;  /* Remove Shadow from Left NAV */
+	border-right: 1px solid #FFFFFF;
+}
+.hk-wrapper.hk-vertical-nav .hk-nav.hk-nav-light{
+	background: #F4F6F8; /* Background for Left NAV  */
+}
+.hk-pg-wrapper{
+	background-color: #F4F6F8; /* Background for Middle Area of the page */
+}
+/* Middle boxes of the page  which has Data Table and Form*/
+.hk-sec-wrapper{
+	/*border: none;*/
+	box-shadow: none;
+}
+.hk-pg-wrapper{
+	padding-top: 70px;
+}
+@media (min-width: 1200px){
+	.hk-wrapper.hk-vertical-nav.hk-icon-nav .hk-pg-wrapper {
+		padding: 85px 30px 0 30px;
+	}
+}
+.bg-pimary-color{
+	background-color: #b2bee1;
+}
+.bg-secondary-color{
+	background-color: #b3ddd2;
+}
+.bg-third-color{
+	background-color: #ffe6c2;
+}
+.bg-forth-color{
+	background-color: #e5cfec;
+}
+.bg-fifth-color{
+	background-color: #bcd6a6;
+}
+.bg-sixth-color{
+	background-color: #aed2e0;
+}
+.bg-seventh-color{
+	background-color: #f5cfc7;
+}
+.hk-wrapper.hk-vertical-nav .hk-nav .navbar-nav li{
+	border-bottom: 1px solid #FDFDFD;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+.hk-wrapper.hk-vertical-nav .hk-nav .navbar-nav li:hover{
+	background-color: #FAFAFA;
+	color: #000;
+}
+.hk-wrapper.hk-vertical-nav .hk-nav .navbar-nav .nav-item .nav-link > i{
+	color: #6980c5;
+}
+.bg-trans-dark-50{
+	background: none;
+}
+/* for Tabs on Page */
+.nav-tabs {
+	margin-left : 20px; 
+}
+.nav-tabs li{
+	border: 1px solid #e2e2e2;
+	border-bottom: 0; 
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #FFF;
+	margin: 0 1px;
+	overflow: hidden;
+	padding: 5px 0;
+}
+.nav-tabs li a{
+	padding: 8px 20px;
+	line-height: 20px;
+	color: #324148;
+}
+.nav-tabs li a:hover{
+	background-color: #e2e2e2;
+}
+.nav-tabs li.active a{
+	color: #FFF;
+	background-color: #324148;
+}
+/* Convert A link into Button Size */
+.link_button{
+	padding: 6px;
+}
+button{
+	cursor: pointer;
+}
+.btn-disable{
+	background-color:#EAEAEA;
+	color: #d1d1d1;
+	text-shadow: 1px 1px 1px #FFF;
+}
+/* Data Table Search Input */
+.dataTables_wrapper .dataTables_filter input{
+	background-color: #FAFAFA;
+}
+table.dataTable thead th, table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td, table.dataTable tfoot th, table.dataTable tfoot td{
+	padding: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter input{
+	width: 200px;
+	margin-left: 10px;
+	display: inline-block;
+}
+.Datatableth_sticky{
+	position: fixed;
+	top: 65px;
+	z-index: 1000;
+	width: 100%;
+}
+.Datatableth_sticky th{
+	padding: 5px 5px !important;
+}
+.th_select_checkbox{
+	width: 10px;
+}
+.th_status{
+	width: 100px;
+}
+.th_action{
+	width: 75px;
+}
+.bg-green, .bg-success{
+	color: white;
+}

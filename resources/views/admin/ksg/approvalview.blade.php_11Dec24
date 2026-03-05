@@ -1,0 +1,486 @@
+@extends('admin.layout.layout')
+@section('content')
+<style type="text/css">
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 20px;
+}
+
+.list-group-item.border-0 {
+    border: none;
+    padding-left: 0; 
+    padding-right: 0; 
+    padding: 5px 10px;
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+ /*range css*/
+$range-width: 100% !default;
+
+.range-slider {
+  width: $range-width;
+}
+.range-slider__range {
+  -webkit-appearance: none;
+  width: calc(100% - (#{$range-label-width + 13px}));
+  height: $range-track-height;
+  border-radius: 5px;
+  background: $range-track-color;
+  outline: none;
+  padding: 0;
+  margin: 0;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-webkit-slider-thumb {
+    background: $range-handle-color-hover;
+  }
+
+  &::-moz-range-thumb {
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border: 0;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-moz-range-thumb {
+    background: $range-handle-color-hover;
+  }
+
+  &:focus {
+    
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 3px $shade-0,
+                  0 0 0 6px $teal;
+    }
+  }
+}
+.range-slider__value {
+  display: inline-block;
+  position: relative;
+  width: $range-label-width;
+  color: $shade-0;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  background: $range-label-color;
+  padding: 5px 10px;
+  margin-left: 8px;
+
+  &:after {
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 7px solid $range-label-color;
+    border-bottom: 7px solid transparent;
+    content: '';
+  }
+}
+blockquote {
+    padding: 2px 10px;
+    margin: 0 0 6px;
+    font-size: 14px;
+    border-left: 5px solid #0052CC;
+    background-color: #e8eff9;
+}
+</style>
+<div class="container">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><i class="fa fa fa-file-excel-o"></i>  Batches for Approval
+					<!-- <ol class="breadcrumb pull-right" style="background:transparent;font-size:14px;">
+           
+               </ol> -->
+               <ol class="breadcrumb pull-right" style="background:transparent;font-size:14px;">{{ Breadcrumbs::render('Approval Page') }}</ol>
+
+				</h1>
+				
+			</div>
+		</div>
+      
+        <div class="">
+    <!-- panel panel-default -->
+     <div>
+
+
+     </div>
+
+
+     <!-- Approve/Reject Modal -->
+     <div class="modal fade" id="approveRejectModal" tabindex="-1" role="dialog" aria-labelledby="approveRejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="approveRejectModalLabel">Update status </h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul id="statusList" class="list-group">
+              </ul>
+              <form id="statusUpdateForm">
+                @csrf
+                <input type ="hidden" id="updateRecordId" name="updateRecordId">
+                <div  class="form-group">
+                    <label for="statusSelect">Update Status</label>
+                    <select id="statusSelect" class="form-control mb-3" name="newStatus">
+                      <option value="">Select Status</option>
+                      <!-- <option value="Send For Approval">Send For Approval</option> -->
+                      <option value="Approved">Approved</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="Correction">Correction</option>
+                    </select>
+                </div>
+                <div id="contentBox" class="form-group" style="display: none;">
+                  <label for="statusComments">Comments</label>
+                  <textarea id="statusComments" class="form-control" rows="3" name="comment" placeholder="Enter comments here..."></textarea>
+                </div>
+                  <button type="submit" class="btn btn-success" id='approveBtn'> Update Status</button>
+              </form>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+     <!-- Upload file modal -->
+     <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="fileModalLabel">Upload  File</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="fileForm" enctype="multipart/form-data">
+          @csrf
+          <!-- Dropdown for selecting batch -->
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+          <div class="form-group">
+            <label for="batchSelect">Select Batch</label>
+            <select id="batchSelect" name="batch_id" class="form-control" >
+             
+            </select>
+          </div>
+          
+         
+          <div class="form-group">
+            <label for="excelFile"> File</label>
+            <input type="file" id="excelFile" name="excel_file" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-success" id="btn_updfile">Upload</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+     <!--  Batch Modal -->
+<div class="modal fade" id="BatchModal" tabindex="-1" role="dialog" aria-labelledby="batchModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="batchModalLabel">Add Batch</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="BatchForm">
+          @csrf
+          <input type="hidden" id="batchId" name="id">
+          <div class="form-group">
+            <label for="batchName">Batch Name</label>
+            <input type="text" class="form-control" id="batchName" name="name" required>
+          </div>
+      
+          <button type="submit" class="btn btn-success">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+       <div class='mt-3'>
+        <table class="table align-middle table-row-dashed fs-7 gy-5" id="tableYajra">
+              <thead>
+                  <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                      <th id="th">SR NO</th>
+                      <th id="th">NAME</th>
+                      <th id="th">By</th>
+                      <th id="th">Date</th>
+                      <th id="th">Count Details</th>
+                      <th id="th">ACTIONS</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+       </div>
+        
+		    </div>
+
+ 		
+		
+	</div>
+</div>
+@stop
+@section('script')
+<script type="text/javascript">
+  $(document).ready(function() {
+            var table = $('#tableYajra').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                url: "{{ route('ksg-approved-batch.datatable') }}",
+                method: 'POST',
+                data: {
+                        approve_flag: 1 ,
+                    
+                    },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                  
+                 
+                    {
+                        data: 'admin_name',
+                        name: 'admin_name'
+                    },
+                    {
+                        data: 'formatted_date',
+                        name: 'formatted_date'
+                    },
+                    { 
+                        data: 'status_counts', 
+                        name: 'status_counts', 
+                        orderable: false, 
+                        searchable: false,
+                        render: function(data, type, row) {
+                           
+                          return data.replace(/,/g, '<br>'); 
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true,
+
+                    }
+                ],
+                rowCallback: function(row, data, index) {
+                    var api = this.api();
+                    var startIndex = api.page() * api.page.len();
+                    var rowNum = startIndex + index + 1;
+                    $(row).find('td:eq(0)').html(rowNum);
+                }
+            });
+
+            setTimeout(function() {
+                $("div.alert-success").remove();
+            }, 3000);
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+  
+
+
+
+   
+
+
+
+
+
+    //status
+    
+    $(document).on('click', '.approveRejectBatch', function() {
+        var recordId = $(this).data('id');
+        $("#updateRecordId").val(recordId);
+
+         var url = "{{ url('edit-batch') }}/" + recordId;
+           $.ajax({
+            url: url,
+            method: 'GET',
+            data: $(this).serialize(),
+            success: function(data) {
+              $('#approveRejectModal').modal('show');
+              $('#statusList').empty();
+              $('#statusList').append('<li class="list-group-item border-0"><strong>Batch Name:</strong> ' + data.name + '</li>');
+              
+                   
+            },
+            error: function(xhr) {
+               toastr.error('An error occurred while processing the batch.');
+            }
+        });  
+        });
+
+        $('#statusSelect').change(function() {
+          var selectedValue = $(this).val();
+          if (selectedValue === 'Rejected' || selectedValue === 'Correction') {
+            $('#contentBox').show();
+          } else {
+            $('#contentBox').hide();
+          }
+        });
+       
+      
+        // update status
+
+        $('#statusUpdateForm').on('submit', function(event) {
+        event.preventDefault();    
+        var url = "{{ route('update-batch-status') }}";
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(data) {
+               
+                if(data.success) {
+                    toastr.success(data.success); 
+                    $("#approveRejectModal").modal('hide');
+                  }
+                  else if(data.error){
+                    toastr.error(data.error);                      
+                  }
+                  else {
+                        toastr.error('An error occurred while deleting the batch.');
+                    }    
+            },
+            error: function(xhr) {
+                toastr.error('An error occurred while processing the batch.');
+            }
+        });
+    });
+
+
+
+
+ });
+
+
+
+ 
+</script>
+
+@stop

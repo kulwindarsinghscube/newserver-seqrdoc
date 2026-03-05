@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond $1 !^(index\.php|images|css|fonts|js|robots|img|plugins|less|SqlData|\.txt)
+# Allow any files or directories that exist to be displayed directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA]

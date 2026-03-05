@@ -1,0 +1,8 @@
+{
+    "percent": 100,
+    "message": "Generating 4/4 PDF(s)",
+    "beginning_time": "16:17:54",
+    "ending_time": "16:17:57",
+    "exec_time": 3.4139480590820312,
+    "hms_time": "00:00:03"
+}

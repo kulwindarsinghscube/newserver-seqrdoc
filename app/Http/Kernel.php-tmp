@@ -1,0 +1,100 @@
+
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php on line 54
+
+Call Stack:
+    0.0059     742600   1. {main}() C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:0
+    0.0071     757304   2. CodeFormatter->formatCode($source = '<?php\r\nnamespace App\\Http;\r\n\r\n\r\nuse Illuminate\\Foundation\\Http\\Kernel as HttpKernel;\r\n\r\nclass Kernel extends HttpKernel\r\n{\r\n    /**\r\n     * The application\'s global HTTP middleware stack.\r\n     *\r\n     * These middleware are run during every request to your application.\r\n     *\r\n     * @var array\r\n     */\r\n    protected $middleware = [\r\n        \\App\\Http\\Middleware\\TrustProxies::class,\r\n        \\App\\Http\\Middleware\\CheckForMaintenanceMode::class,\r\n        \\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostS'...) C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:1736
+    0.0073     761400   3. AddMissingCurlyBraces->format($source = '<?php\r\nnamespace App\\Http;\r\n\r\n\r\nuse Illuminate\\Foundation\\Http\\Kernel as HttpKernel;\r\n\r\nclass Kernel extends HttpKernel\r\n{\r\n    /**\r\n     * The application\'s global HTTP middleware stack.\r\n     *\r\n     * These middleware are run during every request to your application.\r\n     *\r\n     * @var array\r\n     */\r\n    protected $middleware = [\r\n        \\App\\Http\\Middleware\\TrustProxies::class,\r\n        \\App\\Http\\Middleware\\CheckForMaintenanceMode::class,\r\n        \\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostS'...) C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:326
+    0.0073     761400   4. AddMissingCurlyBraces->addBraces($source = '<?php\r\nnamespace App\\Http;\r\n\r\n\r\nuse Illuminate\\Foundation\\Http\\Kernel as HttpKernel;\r\n\r\nclass Kernel extends HttpKernel\r\n{\r\n    /**\r\n     * The application\'s global HTTP middleware stack.\r\n     *\r\n     * These middleware are run during every request to your application.\r\n     *\r\n     * @var array\r\n     */\r\n    protected $middleware = [\r\n        \\App\\Http\\Middleware\\TrustProxies::class,\r\n        \\App\\Http\\Middleware\\CheckForMaintenanceMode::class,\r\n        \\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostS'...) C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:41
+    0.0077    1028528   5. each($arr = [0 => [0 => 382, 1 => '<?php\r\n', 2 => 1], 1 => [0 => 391, 1 => 'namespace', 2 => 2], 2 => [0 => 385, 1 => ' ', 2 => 2], 3 => [0 => 311, 1 => 'App', 2 => 2], 4 => [0 => 393, 1 => '\\', 2 => 2], 5 => [0 => 311, 1 => 'Http', 2 => 2], 6 => ';', 7 => [0 => 385, 1 => '\r\n\r\n\r\n', 2 => 2], 8 => [0 => 350, 1 => 'use', 2 => 5], 9 => [0 => 385, 1 => ' ', 2 => 5], 10 => [0 => 311, 1 => 'Illuminate', 2 => 5], 11 => [0 => 393, 1 => '\\', 2 => 5], 12 => [0 => 311, 1 => 'Foundation', 2 => 5], 13 => [0 => 393, 1 => '\\', 2 => 5], 14 => [0 => 311, 1 => 'Http', 2 => 5], 15 => [0 => 393, 1 => '\\', 2 => 5], 16 => [0 => 311, 1 => 'Kernel', 2 => 5], 17 => [0 => 385, 1 => ' ', 2 => 5], 18 => [0 => 334, 1 => 'as', 2 => 5], 19 => [0 => 385, 1 => ' ', 2 => 5], 20 => [0 => 311, 1 => 'HttpKernel', 2 => 5], 21 => ';', 22 => [0 => 385, 1 => '\r\n\r\n', 2 => 5], 23 => [0 => 364, 1 => 'class', 2 => 7], 24 => [0 => 385, 1 => ' ', 2 => 7], 25 => [0 => 311, 1 => 'Kernel', 2 => 7], 26 => [0 => 385, 1 => ' ', 2 => 7], 27 => [0 => 367, 1 => 'extends', 2 => 7], 28 => [0 => 385, 1 => ' ', 2 => 7], 29 => [0 => 311, 1 => 'HttpKernel', 2 => 7], 30 => [0 => 385, 1 => '\r\n', 2 => 7], 31 => '{', 32 => [0 => 385, 1 => '\r\n    ', 2 => 8], 33 => [0 => 381, 1 => '/**\r\n     * The application\'s global HTTP middleware stack.\r\n     *\r\n     * These middleware are run during every request to your application.\r\n     *\r\n     * @var array\r\n     */', 2 => 9], 34 => [0 => 385, 1 => '\r\n    ', 2 => 15], 35 => [0 => 357, 1 => 'protected', 2 => 16], 36 => [0 => 385, 1 => ' ', 2 => 16], 37 => [0 => 312, 1 => '$middleware', 2 => 16], 38 => [0 => 385, 1 => ' ', 2 => 16], 39 => '=', 40 => [0 => 385, 1 => ' ', 2 => 16], 41 => '[', 42 => [0 => 385, 1 => '\r\n        ', 2 => 16], 43 => [0 => 393, 1 => '\\', 2 => 17], 44 => [0 => 311, 1 => 'App', 2 => 17], 45 => [0 => 393, 1 => '\\', 2 => 17], 46 => [0 => 311, 1 => 'Http', 2 => 17], 47 => [0 => 393, 1 => '\\', 2 => 17], 48 => [0 => 311, 1 => 'Middleware', 2 => 17], 49 => [0 => 393, 1 => '\\', 2 => 17], 50 => [0 => 311, 1 => 'TrustProxies', 2 => 17], 51 => [0 => 390, 1 => '::', 2 => 17], 52 => [0 => 364, 1 => 'class', 2 => 17], 53 => ',', 54 => [0 => 385, 1 => '\r\n        ', 2 => 17], 55 => [0 => 393, 1 => '\\', 2 => 18], 56 => [0 => 311, 1 => 'App', 2 => 18], 57 => [0 => 393, 1 => '\\', 2 => 18], 58 => [0 => 311, 1 => 'Http', 2 => 18], 59 => [0 => 393, 1 => '\\', 2 => 18], 60 => [0 => 311, 1 => 'Middleware', 2 => 18], 61 => [0 => 393, 1 => '\\', 2 => 18], 62 => [0 => 311, 1 => 'CheckForMaintenanceMode', 2 => 18], 63 => [0 => 390, 1 => '::', 2 => 18], 64 => [0 => 364, 1 => 'class', 2 => 18], 65 => ',', 66 => [0 => 385, 1 => '\r\n        ', 2 => 18], 67 => [0 => 393, 1 => '\\', 2 => 19], 68 => [0 => 311, 1 => 'Illuminate', 2 => 19], 69 => [0 => 393, 1 => '\\', 2 => 19], 70 => [0 => 311, 1 => 'Foundation', 2 => 19], 71 => [0 => 393, 1 => '\\', 2 => 19], 72 => [0 => 311, 1 => 'Http', 2 => 19], 73 => [0 => 393, 1 => '\\', 2 => 19], 74 => [0 => 311, 1 => 'Middleware', 2 => 19], 75 => [0 => 393, 1 => '\\', 2 => 19], 76 => [0 => 311, 1 => 'ValidatePostSize', 2 => 19], 77 => [0 => 390, 1 => '::', 2 => 19], 78 => [0 => 364, 1 => 'class', 2 => 19], 79 => ',', 80 => [0 => 385, 1 => '\r\n        ', 2 => 19], 81 => [0 => 393, 1 => '\\', 2 => 20], 82 => [0 => 311, 1 => 'App', 2 => 20], 83 => [0 => 393, 1 => '\\', 2 => 20], 84 => [0 => 311, 1 => 'Http', 2 => 20], 85 => [0 => 393, 1 => '\\', 2 => 20], 86 => [0 => 311, 1 => 'Middleware', 2 => 20], 87 => [0 => 393, 1 => '\\', 2 => 20], 88 => [0 => 311, 1 => 'TrimStrings', 2 => 20], 89 => [0 => 390, 1 => '::', 2 => 20], 90 => [0 => 364, 1 => 'class', 2 => 20], 91 => ',', 92 => [0 => 385, 1 => '\r\n        ', 2 => 20], 93 => [0 => 393, 1 => '\\', 2 => 21], 94 => [0 => 311, 1 => 'Illuminate', 2 => 21], 95 => [0 => 393, 1 => '\\', 2 => 21], 96 => [0 => 311, 1 => 'Foundation', 2 => 21], 97 => [0 => 393, 1 => '\\', 2 => 21], 98 => [0 => 311, 1 => 'Http', 2 => 21], 99 => [0 => 393, 1 => '\\', 2 => 21], 100 => [0 => 311, 1 => 'Middleware', 2 => 21], 101 => [0 => 393, 1 => '\\', 2 => 21], 102 => [0 => 311, 1 => 'ConvertEmptyStringsToNull', 2 => 21], 103 => [0 => 390, 1 => '::', 2 => 21], 104 => [0 => 364, 1 => 'class', 2 => 21], 105 => ',', 106 => [0 => 385, 1 => '\r\n        ', 2 => 21], 107 => [0 => 393, 1 => '\\', 2 => 22], 108 => [0 => 311, 1 => 'App', 2 => 22], 109 => [0 => 393, 1 => '\\', 2 => 22], 110 => [0 => 311, 1 => 'Http', 2 => 22], 111 => [0 => 393, 1 => '\\', 2 => 22], 112 => [0 => 311, 1 => 'Middleware', 2 => 22], 113 => [0 => 393, 1 => '\\', 2 => 22], 114 => [0 => 311, 1 => 'Cors', 2 => 22], 115 => [0 => 390, 1 => '::', 2 => 22], 116 => [0 => 364, 1 => 'class', 2 => 22], 117 => ',', 118 => [0 => 385, 1 => '\r\n    ', 2 => 22], 119 => ']', 120 => ';', 121 => [0 => 385, 1 => '\r\n\r\n    ', 2 => 23], 122 => [0 => 381, 1 => '/**\r\n     * The application\'s route middleware groups.\r\n     *\r\n     * @var array\r\n     */', 2 => 25], 123 => [0 => 385, 1 => '\r\n    ', 2 => 29], 124 => [0 => 357, 1 => 'protected', 2 => 30], 125 => [0 => 385, 1 => ' ', 2 => 30], 126 => [0 => 312, 1 => '$middlewareGroups', 2 => 30], 127 => [0 => 385, 1 => ' ', 2 => 30], ...]) C:\Users\Rohit\AppData\Roaming\Sublime Text\Packages\PHPTools\php.tools\codeFormatter.php:54
+
+<?php
+namespace App\Http;
+
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
+
+class Kernel extends HttpKernel {
+	/**
+	 * The application's global HTTP middleware stack.
+	 *
+	 * These middleware are run during every request to your application.
+	 *
+	 * @var array
+	 */
+	protected $middleware = [
+		\App\Http\Middleware\TrustProxies::class ,
+		\App\Http\Middleware\CheckForMaintenanceMode::class ,
+		\Illuminate\Foundation\Http\Middleware\ValidatePostSize::class ,
+		\App\Http\Middleware\TrimStrings::class ,
+		\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class ,
+		\App\Http\Middleware\Cors::class ,
+	];
+
+	/**
+	 * The application's route middleware groups.
+	 *
+	 * @var array
+	 */
+	protected $middlewareGroups = [
+		'web' => [
+			\App\Http\Middleware\EncryptCookies::class ,
+			\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class ,
+			\Illuminate\Session\Middleware\StartSession::class ,
+			// \Illuminate\Session\Middleware\AuthenticateSession::class,
+			\Illuminate\View\Middleware\ShareErrorsFromSession::class ,
+			\App\Http\Middleware\VerifyCsrfToken::class ,
+			\Illuminate\Routing\Middleware\SubstituteBindings::class ,
+			\App\Http\Middleware\LogoutUsers::class ,
+		],
+
+		'api' => [
+			'throttle:60,1',
+			'bindings',
+		],
+	];
+
+	/**
+	 * The application's route middleware.
+	 *
+	 * These middleware may be assigned to groups or used individually.
+	 *
+	 * @var array
+	 */
+	protected $routeMiddleware = [
+		'auth'             => \App\Http\Middleware\Authenticate::class ,
+		'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class ,
+		'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class ,
+		'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class ,
+		'can'              => \Illuminate\Auth\Middleware\Authorize::class ,
+		'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class ,
+		'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class ,
+		'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class ,
+		'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class ,
+		'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class ,
+		'admin.check'      => \App\Http\Middleware\RedirectIfNotAuthenticated::class ,
+		'web.check'        => \App\Http\Middleware\RedirectWebUserNotLogin::class ,
+		'WebUser'          => \App\Http\Middleware\RedirectWebUserIfAuthenticated::class ,
+		'APIToken'         => \App\Http\Middleware\APIToken::class ,
+		'acl.permitted'    => \App\Http\Middleware\Permission::class ,
+		'superadmin.check' => \App\Http\Middleware\RedirectSuperAdminNotAuthenticate::class ,
+		'superadmin.basic' => \App\Http\Middleware\RedirectIfSuperAdminAuthenticate::class ,
+		'domain.check'     => \App\Http\Middleware\CheckDomain::class ,
+	];
+
+	/**
+	 * The priority-sorted list of middleware.
+	 *
+	 * This forces non-global middleware to always be in the given order.
+	 *
+	 * @var array
+	 */
+	protected $middlewarePriority = [
+		\Illuminate\Session\Middleware\StartSession::class ,
+		\Illuminate\View\Middleware\ShareErrorsFromSession::class ,
+		\App\Http\Middleware\Authenticate::class ,
+		\Illuminate\Routing\Middleware\ThrottleRequests::class ,
+		\Illuminate\Session\Middleware\AuthenticateSession::class ,
+		\Illuminate\Routing\Middleware\SubstituteBindings::class ,
+		\Illuminate\Auth\Middleware\Authorize::class ,
+	];
+}
